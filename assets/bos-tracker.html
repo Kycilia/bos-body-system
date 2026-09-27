@@ -180,18 +180,20 @@ body{font-family:var(--font-body);background:var(--paper);
 .search-wrap{padding:8px 12px;border-bottom:1px solid var(--line);flex-shrink:0}
 .search-wrap input{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:9px;font-size:14px;background:var(--paper2);color:var(--ink);outline:none;font-family:var(--font-body);transition:border-color .2s}
 .search-wrap input:focus{border-color:var(--accent)}
-.cat-chips{display:flex;gap:5px;overflow-x:auto;padding:6px 12px;border-bottom:1px solid var(--line);flex-shrink:0;scrollbar-width:none}
+.cat-chips{display:flex;flex-wrap:wrap;gap:5px;padding:6px 12px;border-bottom:1px solid var(--line);flex-shrink:0}
 .cat-chips::-webkit-scrollbar{display:none}
 .chip{padding:4px 10px;border-radius:var(--r-pill);border:1px solid var(--line);background:none;cursor:pointer;font-size:11px;color:var(--muted);white-space:nowrap;flex-shrink:0;transition:all .2s;font-family:inherit}
 .chip.active{background:var(--primary);color:var(--paper2);border-color:var(--primary)}
 .chip:hover:not(.active){border-color:var(--primary)}
-.scroll-list{overflow-y:auto;flex:1}
+.scroll-list{overflow-y:auto;flex:1;min-height:0}
 .food-row{display:flex;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line);cursor:pointer;gap:8px;transition:background .2s}
 .food-row:hover{background:var(--paper3)}
 .food-row-info{flex:1;min-width:0}
 .food-row-name{font-size:13px;font-weight:500;display:flex;align-items:center;gap:5px;color:var(--ink)}
 .food-row-meta{font-size:10px;color:var(--muted);margin-top:2px}
 .food-row-kcal{font-size:12px;font-weight:600;color:var(--accent)}
+.food-row .copy-btn,.food-row .del{opacity:.45}
+.food-row:hover .copy-btn,.food-row:hover .del{opacity:1}
 .badge{font-size:9px;padding:1px 5px;border-radius:4px;font-weight:500}
 .badge-recent{background:rgba(46,74,59,.12);color:var(--primary)}
 .empty-state{padding:28px;text-align:center;color:var(--muted);font-size:12px;line-height:1.8}
@@ -227,12 +229,15 @@ body{font-family:var(--font-body);background:var(--paper);
 .save-meal-form{display:flex;gap:7px;margin-top:8px}
 .save-meal-form input{flex:1;padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:var(--paper2);color:var(--ink);outline:none;font-family:var(--font-body)}
 .smf-save{background:var(--accent);color:var(--paper2);border:none;border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;font-weight:500;font-family:inherit}
-.cform{padding:12px;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line)}
+.cform{padding:12px;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.cform-back{display:block;width:100%;padding:6px 8px;margin-bottom:2px;background:none;border:none;border-bottom:0.5px solid var(--color-border-tertiary);text-align:left;font-size:12px;color:var(--color-text-secondary);cursor:pointer;font-family:inherit}
 .cform input{padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:var(--paper2);color:var(--ink);outline:none;width:100%;font-family:var(--font-body)}
 .cform input:focus{border-color:var(--accent)}
 .cform .r2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .cform .r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .cform .r4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
+.cform .cfm{display:flex;flex-direction:column;gap:2px;min-width:0}
+.cform .cfm-t{font-size:9px;line-height:1.2;color:var(--color-text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:1px}
 .cform-add{width:100%;padding:9px;background:var(--accent);color:var(--paper2);border:none;border-radius:8px;font-size:13px;cursor:pointer;font-weight:500;transition:all .2s;font-family:inherit}
 .cform-add:hover{background:var(--accent-deep)}
 .sc h3{font-size:13px;font-weight:500;margin-bottom:12px;color:var(--muted);font-family:var(--font-display)}
@@ -308,6 +313,7 @@ body{font-family:var(--font-body);background:var(--paper);
 .dtab.active{background:var(--primary);color:var(--paper2)}
 .dtab:hover:not(.active){background:var(--paper2)}
 .sec-title{font-size:11px;color:var(--primary);font-weight:600;letter-spacing:1px;margin-bottom:10px;text-transform:uppercase;font-family:var(--font-display)}
+.assess-base{font-size:11.5px;color:var(--muted);letter-spacing:.2px;margin:-5px 0 10px;line-height:1.55}
 .hint{font-size:11px;color:var(--muted);line-height:1.6;margin-top:8px}
 /* ── 身体记录页表单（bform 作用域：网格/控件样式，不污染饮食/训练页） ── */
 .bform .r2,.bform .r3,.bform .r4,.bform .r5,.bform .row{display:grid;gap:8px;margin-bottom:8px}
@@ -373,6 +379,7 @@ body{font-family:var(--font-body);background:var(--paper);
 .cta-body{font-size:12px;color:var(--ink);line-height:1.7;margin-bottom:8px}
 .cta-actions{display:flex;flex-direction:column;gap:4px;margin-bottom:6px}
 .cta-line{font-size:12px;color:var(--ink);font-weight:500}
+.cta-review{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(46,74,59,.28);text-align:center;font-size:13px;font-weight:700;color:var(--primary);line-height:1.6;font-family:var(--font-display)}
 
 .ov-hero{margin-bottom:.75rem}
 .ov-date{font-size:11px;color:var(--muted);letter-spacing:1px;font-family:var(--font-mono)}
@@ -402,7 +409,6 @@ body{font-family:var(--font-body);background:var(--paper);
 .bos-greet{font-family:var(--font-display);font-size:clamp(26px,4.6vw,40px);font-weight:700;line-height:1.12;letter-spacing:-0.01em;color:var(--primary);text-wrap:balance}
 .bos-greet .bos-name{color:var(--accent)}
 .bos-date{margin-top:9px;font-family:var(--font-mono);font-size:12px;color:var(--muted);letter-spacing:.05em;line-height:1.7}
-/* 云端·本地同步状态药丸（仅服务器模式显示，开源 file:// 永不出现） */
 .bos-sync-chip{display:inline-block;margin-left:12px;padding:2px 11px;border-radius:999px;font-size:11px;font-weight:500;letter-spacing:.02em;vertical-align:1px;transition:background .2s}
 .bos-sync-chip.ok{background:rgba(50,136,124,.12);color:#32887C}
 .bos-sync-chip.warn{background:rgba(191,146,55,.16);color:#8A6A22}
@@ -1768,9 +1774,9 @@ window.FOOD_DB=[
 function p2(n){return String(n).padStart(2,'0')}
 function todayStr(){const d=new Date();return`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`}
 function offsetDate(b,n){const d=new Date(b+'T00:00:00');d.setDate(d.getDate()+n);return`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`}
-function totalMacros(items){return items.reduce((a,i)=>({kcal:a.kcal+i.kcal,carbs:a.carbs+i.carbs,protein:a.protein+i.protein,fat:a.fat+i.fat,fiber:a.fiber+(i.fiber||0),va:a.va+(i.va||0),vb1:a.vb1+(i.vb1||0),vb2:a.vb2+(i.vb2||0),niacin:a.niacin+(i.niacin||0),ve:a.ve+(i.ve||0),na:a.na+(i.na||0),ca:a.ca+(i.ca||0),fe:a.fe+(i.fe||0),vc:a.vc+(i.vc||0),chol:a.chol+(i.chol||0),mg:a.mg+(i.mg||0),zn:a.zn+(i.zn||0),ka:a.ka+(i.ka||0),mn:a.mn+(i.mn||0),cu:a.cu+(i.cu||0),se:a.se+(i.se||0),ph:a.ph+(i.ph||0)}),{kcal:0,carbs:0,protein:0,fat:0,fiber:0,va:0,vb1:0,vb2:0,niacin:0,ve:0,na:0,ca:0,fe:0,vc:0,chol:0,mg:0,zn:0,ka:0,mn:0,cu:0,se:0,ph:0})}
+function totalMacros(items){return items.reduce((a,i)=>({kcal:a.kcal+i.kcal,carbs:a.carbs+i.carbs,protein:a.protein+i.protein,fat:a.fat+i.fat,fiber:a.fiber+(i.fiber||0),va:a.va+(i.va||0),vb1:a.vb1+(i.vb1||0),vb2:a.vb2+(i.vb2||0),niacin:a.niacin+(i.niacin||0),ve:a.ve+(i.ve||0),na:a.na+(i.na||0),ca:a.ca+(i.ca||0),fe:a.fe+(i.fe||0),vc:a.vc+(i.vc||0),chol:a.chol+(i.chol||0),mg:a.mg+(i.mg||0),zn:a.zn+(i.zn||0),ka:a.ka+(i.ka||0),mn:a.mn+(i.mn||0),cu:a.cu+(i.cu||0),se:a.se+(i.se||0),ph:a.ph+(i.ph||0),vd:a.vd+(i.vd||0),vk:a.vk+(i.vk||0),vb6:a.vb6+(i.vb6||0),vb12:a.vb12+(i.vb12||0),folate:a.folate+(i.folate||0),pa:a.pa+(i.pa||0),biotin:a.biotin+(i.biotin||0),choline:a.choline+(i.choline||0),iodine:a.iodine+(i.iodine||0)}),{kcal:0,carbs:0,protein:0,fat:0,fiber:0,va:0,vb1:0,vb2:0,niacin:0,ve:0,na:0,ca:0,fe:0,vc:0,chol:0,mg:0,zn:0,ka:0,mn:0,cu:0,se:0,ph:0,vd:0,vk:0,vb6:0,vb12:0,folate:0,pa:0,biotin:0,choline:0,iodine:0})}
 function dayTotal(ds){const d=getDayData(ds);return totalMacros([...d.breakfast,...d.lunch,...d.dinner,...d.snack])}
-function calcN(f,g){return{kcal:+(f.pg.k*g).toFixed(1),carbs:+(f.pg.c*g).toFixed(1),protein:+(f.pg.p*g).toFixed(1),fat:+(f.pg.f*g).toFixed(1),fiber:+(f.pg.fi*g).toFixed(1),va:+(f.pg.va*g).toFixed(1),vb1:+(f.pg.vb1*g).toFixed(2),vb2:+(f.pg.vb2*g).toFixed(2),niacin:+(f.pg.niacin*g).toFixed(1),ve:+(f.pg.ve*g).toFixed(2),na:+(f.pg.na*g).toFixed(1),ca:+(f.pg.ca*g).toFixed(1),fe:+(f.pg.fe*g).toFixed(2),vc:+(f.pg.vc*g).toFixed(1),chol:+(f.pg.chol*g).toFixed(1),mg:+(f.pg.mg*g).toFixed(1),zn:+(f.pg.zn*g).toFixed(2),ka:+(f.pg.ka*g).toFixed(1),mn:+(f.pg.mn*g).toFixed(2),cu:+(f.pg.cu*g).toFixed(2),se:+(f.pg.se*g).toFixed(2),ph:+(f.pg.ph*g).toFixed(1)}}
+function calcN(f,g){return{kcal:+(f.pg.k*g).toFixed(1),carbs:+(f.pg.c*g).toFixed(1),protein:+(f.pg.p*g).toFixed(1),fat:+(f.pg.f*g).toFixed(1),fiber:+(f.pg.fi*g).toFixed(1),va:+(f.pg.va*g).toFixed(1),vb1:+(f.pg.vb1*g).toFixed(2),vb2:+(f.pg.vb2*g).toFixed(2),niacin:+(f.pg.niacin*g).toFixed(1),ve:+(f.pg.ve*g).toFixed(2),na:+(f.pg.na*g).toFixed(1),ca:+(f.pg.ca*g).toFixed(1),fe:+(f.pg.fe*g).toFixed(2),vc:+(f.pg.vc*g).toFixed(1),chol:+(f.pg.chol*g).toFixed(1),mg:+(f.pg.mg*g).toFixed(1),zn:+(f.pg.zn*g).toFixed(2),ka:+(f.pg.ka*g).toFixed(1),mn:+(f.pg.mn*g).toFixed(2),cu:+(f.pg.cu*g).toFixed(2),se:+(f.pg.se*g).toFixed(2),ph:+(f.pg.ph*g).toFixed(1),vd:+(((f.pg.vd)||0)*g).toFixed(2),vk:+(((f.pg.vk)||0)*g).toFixed(2),vb6:+(((f.pg.vb6)||0)*g).toFixed(2),vb12:+(((f.pg.vb12)||0)*g).toFixed(2),folate:+(((f.pg.folate)||0)*g).toFixed(1),pa:+(((f.pg.pa)||0)*g).toFixed(1),biotin:+(((f.pg.biotin)||0)*g).toFixed(1),choline:+(((f.pg.choline)||0)*g).toFixed(1),iodine:+(((f.pg.iodine)||0)*g).toFixed(1)}}
 function macroPcts(t){const cK=t.carbs*4,pK=t.protein*4,fK=t.fat*9,T=cK+pK+fK||1;return{c:Math.round(cK/T*100),p:Math.round(pK/T*100),f:Math.round(fK/T*100)}}
 function calcBMR(g,w,h,a){return g==='female'?10*w+6.25*h-5*a-161:10*w+6.25*h-5*a+5}
 function calcPresets(bmr,act){const tdee=Math.round(bmr*act);function m(k,rc,rp,rf){return{kcal:k,carbs:Math.round(k*rc/4),protein:Math.round(k*rp/4),fat:Math.round(k*rf/9)}}return[{key:'fat',name:'减脂',icon:'🔥',macros:m(Math.round(tdee*.8),.40,.30,.30)},{key:'maintain',name:'维持',icon:'⚖️',macros:m(tdee,.50,.25,.25)},{key:'muscle',name:'增肌',icon:'💪',macros:m(Math.round(tdee*1.12),.45,.30,.25)}]}
@@ -1799,6 +1805,8 @@ function generateData(){const d={};const t=todayStr();for(let i=29;i>=0;i--){con
 
 // ── 自定义食物持久化 ──────────────────────────────────
 let CUSTOM_FOOD_DB=JSON.parse(localStorage.getItem('nutrilog_custom')||'[]').map(f=>(f.pg||{k:f.kcal/(f.base_g||100),c:f.carbs/(f.base_g||100),p:f.protein/(f.base_g||100),f:f.fat/(f.base_g||100),fi:(f.fiber||0)/(f.base_g||100),na:(f.na||0)/(f.base_g||100)},f.fiber=f.fiber||0,f.c='自定义',f));
+/* 系统食物覆盖层：{原始名: 改后的完整食物对象} —— 原库不动，可一键恢复 */
+let FOOD_OVERRIDES=JSON.parse(localStorage.getItem('nutrilog_overrides')||'{}');
 
 // ── 本地文件自动保存（File System Access API） ──────
 let FILE_HANDLE=null;
@@ -1873,7 +1881,7 @@ function showSyncRevive(handle){
   };
   document.body.appendChild(el);
 }
-// 启动同步：http 来源优先探测服务器模式（零权限零点击）；file:// 走 FILE_HANDLE 文件链路
+// 启动同步：file:// 走本机文件句柄链路（零权限零点击）
 (function bootSync(){
   function initFileChain(){
     loadHandleFromDB().then(async handle=>{
@@ -1914,8 +1922,8 @@ let S={
   modal:null,modalTab:'recent',
   search:'',activeCat:'全部',
   picking:null,
-  showSaveMeal:false,showCustomForm:false,showCustomMicro:false,showCustomParse:false,
-  customForm:{name:'',kcal:'',kj:'',carbs:'',protein:'',fat:'',fiber:'',unit:'',va:'',vb1:'',vb2:'',niacin:'',ve:'',na:'',ca:'',fe:'',vc:'',chol:'',mg:'',zn:'',ka:'',mn:'',cu:'',se:'',ph:''},
+  showSaveMeal:false,showCustomForm:false,showCustomMicro:false,showCustomParse:false,editingCustomIdx:null,editingSystemKey:null,showMyFoods:false,parseReport:null,
+  customForm:{name:'',kcal:'',kj:'',carbs:'',protein:'',fat:'',fiber:'',unit:'',va:'',vb1:'',vb2:'',niacin:'',ve:'',na:'',ca:'',fe:'',vc:'',chol:'',mg:'',zn:'',ka:'',mn:'',cu:'',se:'',ph:'',vd:'',vk:'',vb6:'',vb12:'',folate:'',pa:'',biotin:'',choline:'',iodine:''},
   customMeals:[
   ],
   recentFoods:JSON.parse(localStorage.getItem('bosdiet_recent')||'[]'),
@@ -1935,6 +1943,8 @@ let S={
   // 首页 UI 态（不持久化）
   ovRange:30,ovHide:[],ovHover:-1,gearOpen:false,
 };
+/* nutrilog_goals 缺失时（换副本 / 重置后）从 bos_diet_meta.goals 兜回，避免营养目标静默变成出厂默认值 */
+(function(){try{if(!localStorage.getItem('nutrilog_goals')){const _m=JSON.parse(localStorage.getItem('bos_diet_meta')||'null');if(_m&&_m.goals&&_m.goals.kcal){S.goals=_m.goals;localStorage.setItem('nutrilog_goals',JSON.stringify(_m.goals))}}}catch(e){}})();
 S.presets=calcPresets(calcBMR(S.body.gender,S.body.weight,S.body.height,getAge()),S.body.act);
 /* 预设选中态持久化：选一次常亮（跨刷新），直到用户换选或改身体参数重算 */
 try{const _sp=localStorage.getItem('bos_preset_sel');if(_sp&&S.presets.some(p=>p.key===_sp))S.selectedPreset=_sp}catch(e){}
@@ -1952,7 +1962,7 @@ function getAge(){return new Date().getFullYear()-(S.body.birthYear||1980)}
 
 // 数据迁移：给旧数据补上缺失的微量字段
 (function migrateData(){
-  const MICRO_FIELDS={va:0,vb1:0,vb2:0,niacin:0,ve:0,na:0,ca:0,fe:0,vc:0,chol:0,mg:0,zn:0,ka:0,mn:0,cu:0,se:0,ph:0,fiber:0};
+  const MICRO_FIELDS={va:0,vb1:0,vb2:0,niacin:0,ve:0,na:0,ca:0,fe:0,vc:0,chol:0,mg:0,zn:0,ka:0,mn:0,cu:0,se:0,ph:0,vd:0,vk:0,vb6:0,vb12:0,folate:0,pa:0,biotin:0,choline:0,iodine:0,fiber:0};
   let changed=false;
   Object.keys(S.data).forEach(ds=>{
     const day=S.data[ds];
@@ -1965,6 +1975,11 @@ function getAge(){return new Date().getFullYear()-(S.body.birthYear||1980)}
           Object.keys(MICRO_FIELDS).forEach(k=>{
             if(item._pg[k]===undefined){item._pg[k]=0;changed=true}
           });
+        }
+        /* 演示数据/历史条目补份量：缺 unit 会让饮食页显示 undefined */
+        if(item.unit===undefined){
+          const _g0=item._g||Math.max(10,Math.round((item.kcal||0)/1.8/10)*10);
+          item._g=_g0;item.unit=_g0+'g';changed=true
         }
       });
     });
@@ -1985,7 +2000,7 @@ function stackedBar(tot){const mp=macroPcts(tot),has=tot.kcal>0;return`<div clas
 // search results (no DOM side effects)
 function getFilteredFoods(){
   const q=S.search.trim();
-  const all=[...FOOD_DB,...CUSTOM_FOOD_DB];
+  const all=[...FOOD_DB.map((f,i)=>{const o=FOOD_OVERRIDES[f.name];return o?{...f,...o,_ovFrom:f.name,_dbIdx:i}:f}),...CUSTOM_FOOD_DB];
   const base=S.activeCat==='全部'?all:all.filter(f=>f.c===S.activeCat);
   if(!q)return base;
   const lq=q.toLowerCase();
@@ -2004,10 +2019,10 @@ function searchListHTML(){
   const list=getFilteredFoods();
   if(!list.length)return`<div class="empty-state">没有找到相关食物<br>可在「手动输入」里自定义添加</div>`;
   return list.map((f,i)=>{
-    const dbIdx=FOOD_DB.indexOf(f);
-    const isCustom=dbIdx===-1;
+    const isCustom=f.c==='自定义';
     const customIdx=isCustom?CUSTOM_FOOD_DB.indexOf(f):-1;
-    return`<div class="food-row" data-pick="search" data-idx="${isCustom?customIdx:dbIdx}" ${isCustom?'data-custom-pick="1"':''}><div class="food-row-info"><div class="food-row-name">${f.name}${isCustom?'<span class="badge badge-recent" style="margin-left:4px">自定义</span>':''}</div><div class="food-row-meta">${f.c||''} · 每${f.base_g}g · ${Math.round(f.kcal)}千卡 · 碳${Math.round(f.carbs)}g 蛋${Math.round(f.protein)}g</div></div><div class="food-row-kcal">${Math.round(f.kcal)}</div>${isCustom?`<button class="copy-btn" data-copy-custom="${isCustom?customIdx:''}" title="复制到剪贴板">${ico('copy',13)}</button>`:''}</div>`;
+    const dbIdx=isCustom?-1:(f._dbIdx!==undefined?f._dbIdx:FOOD_DB.indexOf(f));
+    return`<div class="food-row" data-pick="search" data-idx="${isCustom?customIdx:dbIdx}" ${isCustom?'data-custom-pick="1"':''}><div class="food-row-info"><div class="food-row-name">${f.name}${isCustom?'<span class="badge badge-recent" style="margin-left:4px">自定义</span>':''}${f._ovFrom?'<span class="badge badge-recent" style="margin-left:4px">已改</span>':''}</div><div class="food-row-meta">${f.c||''} · 每${f.base_g}g · ${Math.round(f.kcal)}千卡 · 碳${Math.round(f.carbs)}g 蛋${Math.round(f.protein)}g</div></div><div class="food-row-kcal">${Math.round(f.kcal)}</div>${isCustom?`<button class="copy-btn" data-edit-custom="${customIdx}" title="修改这份自定义食物">${ico('pencil',13)}</button><button class="copy-btn" data-copy-custom="${customIdx}" title="复制到剪贴板">${ico('copy',13)}</button><button class="del" data-del-custom="${customIdx}" title="从自定义食物库删除">×</button>`:`<button class="copy-btn" data-edit-system="${f._ovFrom||f.name}" title="修改这份食物的数据">${ico('pencil',13)}</button>`+(f._ovFrom?`<button class="del" data-reset-system="${f._ovFrom}" title="恢复系统原值">↺</button>`:'')}</div>`;
   }).join('');
 }
 
@@ -2050,9 +2065,11 @@ function renderModal(){
     </div></div>`;
   }
   const isR=S.modalTab==='recent',isSr=S.modalTab==='search',isMm=S.modalTab==='mymeals',isBi=S.modalTab==='batchInput';
+  /* 自定义表单展开时让列表与搜索栏退位，表单独占弹窗剩余高度（否则两个 flex:1 互抢高度，表单被压成一条缝） */
+  const cfOpen=(isSr||isR)&&S.showCustomForm;
   const currentItems=getDayData(S.today)[S.modal]||[];
   let listHTML='';
-  if(isR){listHTML=S.recentFoods.length?S.recentFoods.map((f,i)=>`<div class="food-row" data-pick="recent" data-idx="${i}"><div class="food-row-info"><div class="food-row-name">${f.name} <span class="badge badge-recent">最近</span></div><div class="food-row-meta">${f.c||''} · 标准${f.base_g}g · ${Math.round(f.kcal)}千卡</div></div><div class="food-row-kcal">${Math.round(f.kcal)}</div></div>`).join(''):`<div class="empty-state">还没有记录<br>添加食物后这里显示最近吃过的</div>`;}
+  if(isR){listHTML=S.recentFoods.length?S.recentFoods.map((f,i)=>{const ci=CUSTOM_FOOD_DB.findIndex(c=>c.name===f.name);return`<div class="food-row" data-pick="recent" data-idx="${i}"><div class="food-row-info"><div class="food-row-name">${f.name} <span class="badge badge-recent">最近</span></div><div class="food-row-meta">${f.c||''} · 标准${f.base_g}g · ${Math.round(f.kcal)}千卡</div></div><div class="food-row-kcal">${Math.round(f.kcal)}</div>${ci>-1?`<button class="copy-btn" data-edit-custom="${ci}" title="修改这份自定义食物">${ico('pencil',13)}</button>`:`<button class="copy-btn" data-edit-system="${f.name}" title="修改这份食物的数据">${ico('pencil',13)}</button>`}</div>`}).join(''):`<div class="empty-state">还没有记录<br>添加食物后这里显示最近吃过的</div>`;}
   else if(isSr){listHTML=searchListHTML();}
   else{listHTML=renderMyMealsList();}
   return`<div class="modal-bg" data-close-modal="1"><div class="modal" data-stop="1">
@@ -2064,15 +2081,15 @@ function renderModal(){
       <button class="mtab ${isBi?'active':''}" data-modal-tab="batchInput">批量输入</button>
     </div>
     ${S.clipboard?`<div class="paste-area"><button class="paste-btn" data-paste-food="1">${ico('copy',13)} 粘贴「${S.clipboard.name}」(${Math.round(S.clipboard.kcal)}千卡) 到${mName}</button><div style="text-align:right;margin-top:3px"><button class="paste-clear" data-clear-clipboard="1">× 清除</button></div></div>`:''}
-    ${isSr?`<div class="search-wrap"><input id="search-inp" type="text" placeholder="搜索食物…（支持中文名）" autocomplete="off" value="${S.search}"></div>
+    ${isSr&&!cfOpen?`<div class="search-wrap"><input id="search-inp" type="text" placeholder="搜索食物…（支持中文名）" autocomplete="off" value="${S.search}"></div>
     <div class="cat-chips">${CATEGORIES.map(cat=>`<button class="chip ${S.activeCat===cat?'active':''}" data-cat="${cat}">${cat}</button>`).join('')}<a class="chip" href="https://www.nutridata.cn/database/list?id=1" target="_blank" rel="noopener noreferrer" style="text-decoration:none;border:0.5px dashed var(--color-border-secondary);color:var(--color-text-secondary)">${ico('external',12)} NutriData</a></div>`:''}
     ${isBi?`<div class="batch-area"><textarea id="batch-input" placeholder="格式：食物名+克数，不限分隔符
 例如：
 鸡胸肉100克鸡蛋100克米饭100克
 或
-鸡胸肉100g,鸡蛋100g,米饭100g"></textarea><div class="batch-btns"><button class="paste-btn" data-batch-parse="1" style="flex:1;padding:12px;font-size:14px">${ico('search',13)} 一键解析并添加</button></div><div class="batch-result" id="batch-result">请输入食物名称和克数，点击解析按钮自动添加到${mName}</div></div>`:`<div class="scroll-list" id="modal-list">${listHTML}</div>`}
+鸡胸肉100g,鸡蛋100g,米饭100g"></textarea><div class="batch-btns"><button class="paste-btn" data-batch-parse="1" style="flex:1;padding:12px;font-size:14px">${ico('search',13)} 一键解析并添加</button></div><div class="batch-result" id="batch-result">请输入食物名称和克数，点击解析按钮自动添加到${mName}</div></div>`:`<div class="scroll-list" id="modal-list"${cfOpen?' style="display:none"':''}>${listHTML}</div>`}
     ${!isBi && isMm?renderSaveMealArea(currentItems):''}
-    ${!isBi && isSr?renderCustomForm():''}
+    ${!isBi && (isSr||isR)?renderCustomForm():''}
   </div></div>`;
 }
 
@@ -2086,26 +2103,33 @@ function renderSaveMealArea(items){
   return`<div class="save-meal-area"><button class="save-meal-btn" data-show-save=\"1\">${ico('bookmark',13)} 将当前${MEALS.find(m=>m.id===S.modal).name}（${items.length} 项）保存为套餐</button></div>`;
 }
 function renderCustomForm(){
-  if(!S.showCustomForm)return`<div style="border-top:0.5px solid var(--color-border-tertiary);flex-shrink:0"><button style="width:100%;padding:9px;background:none;border:none;font-size:12px;cursor:pointer;color:var(--color-text-secondary)" data-toggle-cf="1">＋ 手动输入自定义食物</button></div>`;
+  if(!S.showCustomForm)return`<div style="border-top:0.5px solid var(--color-border-tertiary);flex-shrink:0"><button style="width:100%;padding:9px;background:none;border:none;font-size:12px;cursor:pointer;color:var(--color-text-secondary)" data-toggle-cf="1">＋ 手动输入自定义食物</button>${CUSTOM_FOOD_DB.length?`<button style="width:100%;padding:8px;background:none;border:none;border-top:0.5px solid var(--color-border-tertiary);font-size:12px;cursor:pointer;color:var(--color-text-secondary)" data-toggle-mf="1">${S.showMyFoods?'▾':'▸'} 我的自定义食物（${CUSTOM_FOOD_DB.length} 条）· 可改名 / 删除</button>`:''}${S.showMyFoods&&CUSTOM_FOOD_DB.length?`<div style="max-height:210px;overflow:auto;background:var(--paper2)">${CUSTOM_FOOD_DB.map((f,i)=>`<div class="food-row" style="cursor:default;padding:8px 12px"><div class="food-row-info"><div class="food-row-name">${f.name}</div><div class="food-row-meta">${f.unit||((f.base_g||100)+'g')} · ${Math.round(f.kcal)}千卡 · 碳${Math.round(f.carbs||0)}g 蛋${Math.round(f.protein||0)}g</div></div><div class="food-row-kcal">${Math.round(f.kcal)}</div><button class="copy-btn" data-edit-custom="${i}" title="修改这份自定义食物">${ico('pencil',13)}</button><button class="del" data-del-custom="${i}" title="从自定义食物库删除">×</button></div>`).join('')}</div>`:''}</div>`;
   const cf=S.customForm;
   const showMicro=S.showCustomMicro;
   const showCp=S.showCustomParse;
   return`<div class="cform">
+    <button class="cform-back" data-toggle-cf="1">‹ 返回列表</button>
+    ${(S.editingCustomIdx!=null||S.editingSystemKey)?`<div style="font-size:11px;line-height:1.5;color:var(--color-text-secondary);margin-bottom:6px">正在修改「${cf.name}」—— 保存后搜索和新增都用新数据，已记录的历史不变</div>`:''}
+    ${S.parseReport?`<div style="font-size:11px;line-height:1.65;margin-bottom:6px;padding:6px 8px;border-radius:6px;background:var(--paper2);color:var(--color-text-secondary)">已识别 ${S.parseReport.ok.length} 项：${S.parseReport.ok.join('、')||'无'}${S.parseReport.miss.length?`<br>未填（源数据为空或为 0）：${S.parseReport.miss.join('、')}`:''}${(S.parseReport.unsup&&S.parseReport.unsup.length)?`<br>本表单没有这些格子：${S.parseReport.unsup.join('、')}`:''}</div>`:''}
     <button class="cform-parse-toggle" data-toggle-cp="1" style="width:100%;padding:7px;background:none;border:none;font-size:11px;cursor:pointer;color:var(--color-text-secondary);border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:6px">${showCp?'▾ 收起粘贴解析':'粘贴解析（一键填充）'}</button>
     ${showCp?`<div class="cp-area" style="margin-bottom:6px"><textarea id="cf-parse-inp" rows="2" style="width:100%;padding:6px;border:0.5px solid var(--color-border-secondary);border-radius:6px;font-size:11px;resize:none;background:var(--color-background-primary);color:var(--color-text-primary)" placeholder="粘贴营养数据，支持多种格式：
 水饺 100g 蛋白质8.4g 脂肪6.9g 碳水29g 钠371mg
 能量1200kJ 蛋白20g 脂肪15g 碳水50g 膳食纤维5g
-鸡胸肉 热量165千卡 蛋白质31g 脂肪3.6g 碳水0g 钙10mg"></textarea><div style="display:flex;gap:6px;margin-top:4px"><button class="paste-btn" data-parse-to-cf=\"1\" style=\"flex:1;padding:8px;font-size:12px\">${ico('search',12)} 解析并填入表单</button><a class="paste-btn" href="https://www.nutridata.cn/database/list?id=1" target="_blank" rel="noopener noreferrer" style="padding:8px;font-size:12px;text-decoration:none;display:flex;align-items:center;gap:2px;color:var(--color-text-secondary);border:0.5px solid var(--color-border-secondary);border-radius:6px\">${ico('external',12)} 去查</a></div></div>`:''}
+鸡胸肉 热量165千卡 蛋白质31g 脂肪3.6g 碳水0g 钙10mg
+成分表那种「名称一行、数值一行」的分行粘贴也支持
+从成分表 / Excel 直接复制整行（含表头一起复制更好）也支持"></textarea><div style="display:flex;gap:6px;margin-top:4px"><button class="paste-btn" data-parse-to-cf=\"1\" style=\"flex:1;padding:8px;font-size:12px\">${ico('search',12)} 解析并填入表单</button><a class="paste-btn" href="https://www.nutridata.cn/database/list?id=1" target="_blank" rel="noopener noreferrer" style="padding:8px;font-size:12px;text-decoration:none;display:flex;align-items:center;gap:2px;color:var(--color-text-secondary);border:0.5px solid var(--color-border-secondary);border-radius:6px\">${ico('external',12)} 去查</a></div></div>`:''}
     <input id="cf-name" type="text" placeholder="食物名称 *" value="${cf.name}">${S.clipboard?`<button class="cf-paste-btn" data-paste-to-cf="1" style="margin-left:6px;padding:4px 8px;font-size:11px;cursor:pointer;border:0.5px solid var(--color-border-secondary);border-radius:5px;background:none;color:var(--color-text-secondary)">${ico('copy',12)} 粘贴「${S.clipboard.name}」</button>`:''}
-    <div class="r3"><input id="cf-kcal" type="number" placeholder="热量 (千卡)" value="${cf.kcal}"><input id="cf-kj" type="number" placeholder="或 kJ" value="${cf.kj}"><input id="cf-unit" type="text" placeholder="份量如100g" value="${cf.unit}"></div>
-    <div class="r4" style="grid-template-columns:repeat(5,1fr)"><input id="cf-carbs" type="number" placeholder="碳水 g" value="${cf.carbs}"><input id="cf-protein" type="number" placeholder="蛋白 g" value="${cf.protein}"><input id="cf-fat" type="number" placeholder="脂肪 g" value="${cf.fat}"><input id="cf-fiber" type="number" placeholder="膳食纤维 g" value="${cf.fiber}"><input id="cf-na" type="number" placeholder="钠 mg" value="${cf.na}"></div>
+    <div class="r3"><div class="cfm"><span class="cfm-t">热量 千卡</span><input id="cf-kcal" type="number" value="${cf.kcal}"></div><div class="cfm"><span class="cfm-t">或 kJ</span><input id="cf-kj" type="number" value="${cf.kj}"></div><div class="cfm"><span class="cfm-t">份量（如 100g）</span><input id="cf-unit" type="text" value="${cf.unit}"></div></div>
+    <div class="r4" style="grid-template-columns:repeat(5,1fr)"><div class="cfm"><span class="cfm-t">碳水 g</span><input id="cf-carbs" type="number" value="${cf.carbs}"></div><div class="cfm"><span class="cfm-t">蛋白 g</span><input id="cf-protein" type="number" value="${cf.protein}"></div><div class="cfm"><span class="cfm-t">脂肪 g</span><input id="cf-fat" type="number" value="${cf.fat}"></div><div class="cfm"><span class="cfm-t">膳食纤维 g</span><input id="cf-fiber" type="number" value="${cf.fiber}"></div><div class="cfm"><span class="cfm-t">钠 mg</span><input id="cf-na" type="number" value="${cf.na}"></div></div>
     <button class="cform-micro-toggle" data-toggle-cm="1" style="width:100%;padding:6px;background:none;border:none;border-top:0.5px solid var(--color-border-tertiary);font-size:11px;cursor:pointer;color:var(--color-text-secondary);margin:6px 0">${showMicro?'▾ 收起微量元素':'▸ 补充微量元素'}</button>
-    ${showMicro?`<div class="r4"><input id="cf-va" type="number" placeholder="维生素A μg" value="${cf.va}"><input id="cf-vb1" type="number" placeholder="维B1(硫胺素) mg" value="${cf.vb1}"><input id="cf-vb2" type="number" placeholder="维B2(核黄素) mg" value="${cf.vb2}"><input id="cf-niacin" type="number" placeholder="烟酸 mg" value="${cf.niacin}"></div>
-    <div class="r4"><input id="cf-ve" type="number" placeholder="维生素E mg" value="${cf.ve}"><input id="cf-ca" type="number" placeholder="钙 mg" value="${cf.ca}"><input id="cf-fe" type="number" placeholder="铁 mg" value="${cf.fe}"><input id="cf-cu" type="number" placeholder="铜 mg" value="${cf.cu}"></div>
-    <div class="r2"><input id="cf-vc" type="number" placeholder="维生素C mg" value="${cf.vc}"><input id="cf-chol" type="number" placeholder="胆固醇 mg" value="${cf.chol}"></div>
-    <div class="r4"><input id="cf-mg" type="number" placeholder="镁 mg" value="${cf.mg}"><input id="cf-zn" type="number" placeholder="锌 mg" value="${cf.zn}"><input id="cf-ka" type="number" placeholder="钾 mg" value="${cf.ka}"><input id="cf-mn" type="number" placeholder="锰 mg" value="${cf.mn}"></div>
-    <div class="r4"><input id="cf-cu" type="number" placeholder="铜 mg" value="${cf.cu}"><input id="cf-se" type="number" placeholder="硒 μg" value="${cf.se}"><input id="cf-ph" type="number" placeholder="磷 mg" value="${cf.ph}"></div>`:''}
-    <button class="cform-add" data-add-custom="1">添加到记录</button>
+    ${showMicro?`<div class="r4"><div class="cfm"><span class="cfm-t">维生素A μg</span><input id="cf-va" type="number" value="${cf.va}"></div><div class="cfm"><span class="cfm-t">维B1 mg</span><input id="cf-vb1" type="number" value="${cf.vb1}"></div><div class="cfm"><span class="cfm-t">维B2 mg</span><input id="cf-vb2" type="number" value="${cf.vb2}"></div><div class="cfm"><span class="cfm-t">烟酸 mg</span><input id="cf-niacin" type="number" value="${cf.niacin}"></div></div>
+    <div class="r4"><div class="cfm"><span class="cfm-t">维生素E mg</span><input id="cf-ve" type="number" value="${cf.ve}"></div><div class="cfm"><span class="cfm-t">维生素C mg</span><input id="cf-vc" type="number" value="${cf.vc}"></div><div class="cfm"><span class="cfm-t">维生素D μg</span><input id="cf-vd" type="number" value="${cf.vd}"></div><div class="cfm"><span class="cfm-t">维生素K μg</span><input id="cf-vk" type="number" value="${cf.vk}"></div></div>
+    <div class="r4"><div class="cfm"><span class="cfm-t">维B6 mg</span><input id="cf-vb6" type="number" value="${cf.vb6}"></div><div class="cfm"><span class="cfm-t">维B12 μg</span><input id="cf-vb12" type="number" value="${cf.vb12}"></div><div class="cfm"><span class="cfm-t">叶酸 μg</span><input id="cf-folate" type="number" value="${cf.folate}"></div><div class="cfm"><span class="cfm-t">泛酸 mg</span><input id="cf-pa" type="number" value="${cf.pa}"></div></div>
+    <div class="r3"><div class="cfm"><span class="cfm-t">生物素 μg</span><input id="cf-biotin" type="number" value="${cf.biotin}"></div><div class="cfm"><span class="cfm-t">胆碱 mg</span><input id="cf-choline" type="number" value="${cf.choline}"></div><div class="cfm"><span class="cfm-t">胆固醇 mg</span><input id="cf-chol" type="number" value="${cf.chol}"></div></div>
+    <div class="r4"><div class="cfm"><span class="cfm-t">钙 mg</span><input id="cf-ca" type="number" value="${cf.ca}"></div><div class="cfm"><span class="cfm-t">铁 mg</span><input id="cf-fe" type="number" value="${cf.fe}"></div><div class="cfm"><span class="cfm-t">铜 mg</span><input id="cf-cu" type="number" value="${cf.cu}"></div><div class="cfm"><span class="cfm-t">镁 mg</span><input id="cf-mg" type="number" value="${cf.mg}"></div></div>
+    <div class="r4"><div class="cfm"><span class="cfm-t">锌 mg</span><input id="cf-zn" type="number" value="${cf.zn}"></div><div class="cfm"><span class="cfm-t">钾 mg</span><input id="cf-ka" type="number" value="${cf.ka}"></div><div class="cfm"><span class="cfm-t">锰 mg</span><input id="cf-mn" type="number" value="${cf.mn}"></div><div class="cfm"><span class="cfm-t">硒 μg</span><input id="cf-se" type="number" value="${cf.se}"></div></div>
+    <div class="r2"><div class="cfm"><span class="cfm-t">磷 mg</span><input id="cf-ph" type="number" value="${cf.ph}"></div><div class="cfm"><span class="cfm-t">碘 μg</span><input id="cf-iodine" type="number" value="${cf.iodine}"></div></div>`:''}
+    <button class="cform-add" data-add-custom="1">${(S.editingCustomIdx!=null||S.editingSystemKey)?'保存修改':'添加到记录'}</button>
   </div>`;
 }
 
@@ -2128,12 +2152,12 @@ function renderReport(){
   <div class="chart-card macro-card"><div class="chart-title">平均营养素占比</div><div class="macro-body">${bp(mp.c,mp.p,mp.f)}<div class="macro-legends"><div class="macro-item"><div class="macro-dot" style="background:var(--mc-c)"></div><div class="macro-info"><div class="macro-name">碳水化合物</div><div class="macro-bar-row"><div class="macro-track"><div class="macro-fill" style="width:${mp.c}%;background:var(--mc-c)"></div></div><span class="macro-val" style="color:var(--mc-c)">${aC}g &middot; ${mp.c}%</span></div></div></div><div class="macro-item"><div class="macro-dot" style="background:var(--mc-p)"></div><div class="macro-info"><div class="macro-name">蛋白质</div><div class="macro-bar-row"><div class="macro-track"><div class="macro-fill" style="width:${mp.p}%;background:var(--mc-p)"></div></div><span class="macro-val" style="color:var(--mc-p)">${aP}g &middot; ${mp.p}%</span></div></div></div><div class="macro-item"><div class="macro-dot" style="background:var(--mc-f)"></div><div class="macro-info"><div class="macro-name">脂肪</div><div class="macro-bar-row"><div class="macro-track"><div class="macro-fill" style="width:${mp.f}%;background:var(--mc-f)"></div></div><span class="macro-val" style="color:var(--mc-f)">${aF}g &middot; ${mp.f}%</span></div></div></div></div></div><div class="macro-tip">${ico('bulb',12)} 参考范围：碳水 45&ndash;65% &middot; 蛋白 10&ndash;35% &middot; 脂肪 20&ndash;35%</div></div>
   <div class="chart-card"><div class="chart-title">平均营养 vs 目标</div>${mr('碳水',aC,G.carbs,'var(--mc-c)')}${mr('蛋白质',aP,G.protein,'var(--mc-p)')}${mr('脂肪',aF,G.fat,'var(--mc-f)')}${mr('膳食纤维',avg('fiber'),30,'var(--mc-fib)')}</div>
   <div class="chart-card"><div class="chart-title">微量营养素 vs 推荐摄入量</div>
-  <div class="micro-bar-wrap">${[['膳食纤维','fiber','g',30],['维生素A','va','μg',700],['维生素B1','vb1','mg',1.2],['维生素B2','vb2','mg',1.2],['烟酸','niacin','mg',12],['维生素E','ve','mg',14],['钙','ca','mg',800],['铁','fe','mg',20],['维生素C','vc','mg',100],['镁','mg','mg',330],['锌','zn','mg',7.5],['钾','ka','mg',2000],['磷','ph','mg',720],['硒','se','μg',60]].map(([label,key,unit,goal])=>{const v=avg(key),p=goal>0?Math.min(Math.round(v/goal*100),100):0,cl=p>=80?'mb-ok':p>=50?'mb-warn':'mb-ex';return`<div class="mb"><div class="mb-label">${label}</div><div class="mb-track"><div class="mb-fill" style="width:${p}%;background:${p>=80?'var(--rc-ok)':p>=50?'var(--rc-under)':'var(--rc-over)'}"></div></div><div class="mb-val"><span>${Math.round(v)}/${goal}${unit}</span><span class="mb-pct ${cl}">${p}%</span></div></div>`}).join('')}</div></div>`;
+  <div class="micro-bar-wrap">${[['膳食纤维','fiber','g',30],['维生素A','va','μg',700],['维生素D','vd','μg',10],['维生素E','ve','mg',14],['维生素K','vk','μg',80],['维生素B1','vb1','mg',1.2],['维生素B2','vb2','mg',1.2],['维生素B6','vb6','mg',1.4],['维生素B12','vb12','μg',2.4],['烟酸','niacin','mg',12],['叶酸','folate','μg',400],['泛酸','pa','mg',5],['生物素','biotin','μg',40],['胆碱','choline','mg',380],['维生素C','vc','mg',100],['钙','ca','mg',800],['铁','fe','mg',20],['锌','zn','mg',7.5],['镁','mg','mg',330],['钾','ka','mg',2000],['磷','ph','mg',720],['硒','se','μg',60],['碘','iodine','μg',120]].map(([label,key,unit,goal])=>{const v=avg(key),p=goal>0?Math.min(Math.round(v/goal*100),100):0,cl=p>=80?'mb-ok':p>=50?'mb-warn':'mb-ex';return`<div class="mb"><div class="mb-label">${label}</div><div class="mb-track"><div class="mb-fill" style="width:${p}%;background:${p>=80?'var(--rc-ok)':p>=50?'var(--rc-under)':'var(--rc-over)'}"></div></div><div class="mb-val"><span>${Math.round(v)}/${goal}${unit}</span><span class="mb-pct ${cl}">${p}%</span></div></div>`}).join('')}</div></div>`;
 }
 
 function goalPct(g,k){const cK=g.carbs*4,pK=g.protein*4,fK=g.fat*9,T=cK+pK+fK||1;return k==='carbs'?Math.round(cK/T*100):k==='protein'?Math.round(pK/T*100):Math.round(fK/T*100)}
 // 中国居民膳食营养素参考摄入量（成年女性）
-const DRI={fiber:30,va:700,vb1:1.2,vb2:1.2,niacin:12,ve:14,na:1500,ca:800,fe:20,vc:100,chol:300,mg:330,zn:7.5,ka:2000,mn:4.5,cu:0.8,se:60,ph:720};
+const DRI={fiber:30,va:700,vb1:1.2,vb2:1.2,niacin:12,ve:14,na:1500,ca:800,fe:20,vc:100,chol:300,mg:330,zn:7.5,ka:2000,mn:4.5,cu:0.8,se:60,ph:720,vd:10,vk:80,vb6:1.4,vb12:2.4,folate:400,pa:5,biotin:40,choline:380,iodine:120};
 // ── 微量营养素雷达图（已废弃，改用条形列表） ──────────────
 
 function renderSettings(){
@@ -2167,7 +2191,7 @@ function render(){
   else body=renderDiet();
   const tabs=[['overview','home','概览'],['body','heart','身体'],['training','barbell','训练'],['diet','plate','饮食'],['assess','chart','评估']];
   const nav=tabs.map(([k,ic,lb])=>`<button class="snav-btn ${S.tab===k?'active':''}" onclick="S.tab='${k}';render()"><span class="ic">${ico(ic,16)}</span><span class="snav-lb">${lb}</span>${k==='assess'&&assessNewAvail()?'<span title="新一期7天评估已生成，点击查看" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#D64541;margin-left:6px;vertical-align:middle;flex-shrink:0"></span>':''}</button>`).join('');
-  document.getElementById('app').innerHTML=`<div class="shell"><aside class="sidenav"><div class="slogo"><b>BOS</b><span>身体风控工作台</span></div><nav class="snav">${nav}</nav>${S.tab==='overview'?todoCard():''}<div class="snav-foot"><div class="snav-warn-hd">⚠️ 开源版数据只存本机浏览器</div><div>提醒：以下任何一个，数据都会灰飞烟灭——</div><div class="snav-warn-list">1. 手动清除浏览器数据<br>2. 更换浏览器<br>3. 更换电脑<br>4. 无痕 / 隐私模式<br>5. 重装系统</div><button class="snav-kbtn" onclick="S.tab='assess';render()" title="自助版：纯文档 ¥69 ｜ 满血版：远程指导+1个月售后 ¥169 · 微信号在低阶评估页">自助版（纯文档）¥69<br>满血版（远程指导+1月售后）¥169 →</button></div></aside><main class="smain">${body}</main></div>`;
+  document.getElementById('app').innerHTML=`<div class="shell"><aside class="sidenav"><div class="slogo"><b>BOS</b><span>身体风控工作台</span></div><nav class="snav">${nav}</nav>${S.tab==='overview'?todoCard():''}<div class="snav-foot"><div class="snav-warn-hd">⚠️ 开源版数据只存本机浏览器</div><div>提醒：以下任何一个，数据都会灰飞烟灭——</div><div class="snav-warn-list">1. 手动清除浏览器数据<br>2. 更换浏览器<br>3. 更换电脑<br>4. 无痕 / 隐私模式<br>5. 重装系统</div><div class="snav-kbtn" style="cursor:default">工作台自助版 满血版<div style="font-weight:400;font-size:10px;color:var(--muted);line-height:1.55;margin-top:4px">有疑问，或需要一对一的深度解读，欢迎在评论区留言，我会逐一回复。</div></div></div></aside><main class="smain">${body}</main></div>`;
   document.getElementById('modal-root').innerHTML=renderModal()+(S.gearOpen?renderGear():'');
   if(S.tab==='overview')setTimeout(bosDrawTrend,16);
   if(S.modal && S.modalTab==='search' && !S.picking){
@@ -2187,7 +2211,7 @@ function renderDiet(){
 // ★★ 单一事件委托，绑定在永久 #root 上 ★★
 document.getElementById('root').addEventListener('click',function(e){
   try{
-  const t=e.target.closest('[data-open],[data-close-modal],[data-stop],[data-modal-tab],[data-pick],[data-gram],[data-confirm-add],[data-back-pick],[data-del-meal],[data-use-meal],[data-del-meal-i],[data-show-save],[data-save-meal],[data-toggle-cf],[data-toggle-cm],[data-toggle-cp],[data-add-custom],[data-paste-to-cf],[data-parse-to-cf],[data-cat],[data-copy-meal],[data-copy-custom],[data-paste-food],[data-clear-clipboard],[data-batch-parse],[data-custom-pick],[data-edit-meal]');
+  const t=e.target.closest('[data-open],[data-close-modal],[data-stop],[data-modal-tab],[data-pick],[data-gram],[data-confirm-add],[data-back-pick],[data-del-meal],[data-use-meal],[data-del-meal-i],[data-show-save],[data-save-meal],[data-toggle-cf],[data-toggle-cm],[data-toggle-cp],[data-add-custom],[data-paste-to-cf],[data-parse-to-cf],[data-cat],[data-copy-meal],[data-copy-custom],[data-paste-food],[data-clear-clipboard],[data-batch-parse],[data-custom-pick],[data-edit-meal],[data-edit-custom],[data-del-custom],[data-toggle-mf],[data-edit-system],[data-reset-system]');
   if(!t) return;
   if(t.dataset.stop) return;
   if(t.dataset.closeModal){closeModal();return}
@@ -2200,15 +2224,75 @@ document.getElementById('root').addEventListener('click',function(e){
   if(t.dataset.delMeal!==undefined&&t.dataset.delIdx!==undefined){removeItem(t.dataset.delMeal,+t.dataset.delIdx);editTick();return}
   if(t.dataset.useMeal!==undefined){useCustomMeal(+t.dataset.useMeal);return}
   if(t.dataset.delMealI!==undefined){deleteCustomMeal(+t.dataset.delMealI);return}
+  if(t.dataset.editCustom!==undefined){editCustomFood(+t.dataset.editCustom);return}
+  if(t.dataset.editSystem!==undefined){editSystemFood(t.dataset.editSystem);return}
+  if(t.dataset.resetSystem!==undefined){resetSystemFood(t.dataset.resetSystem);return}
+  if(t.dataset.delCustom!==undefined){deleteCustomFood(+t.dataset.delCustom);return}
   if(t.dataset.showSave){S.showSaveMeal=true;render();return}
   if(t.dataset.saveMeal){saveCustomMeal();return}
-  if(t.dataset.toggleCf){S.showCustomForm=!S.showCustomForm;S.showCustomMicro=false;S.showCustomParse=false;render();return}
+  if(t.dataset.toggleMf){S.showMyFoods=!S.showMyFoods;render();return}
+  if(t.dataset.toggleCf){S.editingCustomIdx=null;S.editingSystemKey=null;resetCustomForm();S.showCustomForm=!S.showCustomForm;S.showCustomMicro=false;S.showCustomParse=false;render();return}
   if(t.dataset.toggleCm){S.showCustomMicro=!S.showCustomMicro;render();return}
   if(t.dataset.toggleCp){S.showCustomParse=!S.showCustomParse;render();return}
   // 解析粘贴文本 → 填充自定义表单
   if(t.dataset.parseToCf){
-    const text=document.getElementById('cf-parse-inp')?.value.trim();
+    let text=document.getElementById('cf-parse-inp')?.value.trim();
     if(!text){alert('请粘贴营养数据');return}
+    /* ── 表格粘贴：Excel 整行 / 表头+数据行 → 先转成「标签+数值」文本，再走下面的通用解析 ── */
+    (function(){
+      const _cut=s=>{ if(s.indexOf('\t')>=0) return s.split('\t').map(x=>x.trim()); return s.split(/\s{2,}/).map(x=>x.trim()).filter(x=>x!==''); };
+      const _rows=text.split(/\r?\n/).map(s=>s.replace(/^[\s\u3000]+/,'')).filter(s=>s.trim()!=='').map(_cut);
+      if(!_rows.length||_rows[0].length<6)return;
+      const _MK=[['维生素D3','vd','维生素D'],['维生素D','vd','维生素D'],['维D','vd','维生素D'],['维生素K1','vk','维生素K'],['维生素K','vk','维生素K'],['维K','vk','维生素K'],['维生素B12','vb12','维生素B12'],['维B12','vb12','维生素B12'],['钴胺素','vb12','维生素B12'],['维生素B6','vb6','维生素B6'],['维B6','vb6','维生素B6'],['吡哆醇','vb6','维生素B6'],['叶酸','folate','叶酸'],['维生素B9','folate','叶酸'],['泛酸','pa','泛酸'],['维生素B5','pa','泛酸'],['生物素','biotin','生物素'],['维生素B7','biotin','生物素'],['胆碱','choline','胆碱'],['碘','iodine','碘'],['序号','_',''],['名  称','name',''],['名称','name',''],['食物名','name',''],['食物','name',''],
+        ['可食部分','_',''],['地区','_',''],['能量','kcal','能量'],['热量','kcal','热量'],['水分','_',''],
+        ['蛋白质','protein','蛋白质'],['蛋白','protein','蛋白质'],['脂肪','fat','脂肪'],
+        ['膳食纤维','fiber','膳食纤维'],['纤维','fiber','膳食纤维'],
+        ['碳水化合物','carbs','碳水'],['碳水化物','carbs','碳水'],['碳水','carbs','碳水'],
+        ['视黄醇当量','va','维生素A'],['维生素A','va','维生素A'],['维A','va','维生素A'],
+        ['硫胺素','vb1','维生素B1'],['维生素B1','vb1','维生素B1'],['维B1','vb1','维生素B1'],
+        ['核黄素','vb2','维生素B2'],['维生素B2','vb2','维生素B2'],['维B2','vb2','维生素B2'],
+        ['尼克酸','niacin','烟酸'],['烟酸','niacin','烟酸'],['VPP','niacin','烟酸'],
+        ['维生素E','ve','维生素E'],['维E','ve','维生素E'],
+        ['钠','na','钠'],['钙','ca','钙'],['铁','fe','铁'],['类别','_',''],['类','_',''],
+        ['抗坏血酸','vc','维生素C'],['维生素C','vc','维生素C'],['维C','vc','维生素C'],['胆固醇','chol','胆固醇'],
+        ['镁','mg','镁'],['锌','zn','锌'],['钾','ka','钾'],['锰','mn','锰'],['铜','cu','铜'],['硒','se','硒'],['磷','ph','磷']];
+      const _mk=h=>_MK.find(m=>h.indexOf(m[0])>=0);
+      /* 无表头兜底：先定位食物名列，再按《中国食物成分表》固定序列映射 */
+      const _SEQ20=['kcal','_','protein','fat','fiber','carbs','va','vb1','vb2','niacin','ve','na','ca','fe','_','vc','chol'];
+      const _SEQ21=['kcal','_','protein','fat','fiber','carbs','va','vb1','vb2','niacin','ve','na','ca','fe','_','vc','_','chol'];
+      let _map=null,_data=null;
+      if(_rows.length>=2&&_rows[0].filter(h=>_mk(h)).length>=4){_map=_rows[0].map(_mk);_data=_rows[1];}
+      else{
+        const _numre=/^-?[\d.]+$/;
+        let _ni=-1;
+        for(let i=0;i<_rows[0].length;i++){const c=_rows[0][i];if(c!==''&&!_numre.test(c)){_ni=i;break}}
+        const _a=_ni>=0?(_rows[0][_ni+1]||''):'',_b=_ni>=0?(_rows[0][_ni+2]||''):'';
+        if(_ni>=0&&_rows[0].filter(c=>_numre.test(c)).length>=10){
+          let _off=_ni+1;
+          if(_numre.test(_a)&&parseFloat(_a)<=100)_off=_ni+2;
+          else if(!_numre.test(_a)&&_numre.test(_b)&&parseFloat(_b)<=100)_off=_ni+3;
+          if(_off-_ni>=1&&_off-_ni<=3&&_rows[0].length-_off>=8){
+            const _nm=_MK.find(m=>m[1]==='name');
+            const _SEQP=(_rows[0].length-_off>=18)?_SEQ21:_SEQ20;
+            _map=_rows[0].map((_,j)=>j===_ni?_nm:(j>=_off&&_SEQP[j-_off]?_MK.find(m=>m[1]===_SEQP[j-_off]):null));
+            _data=_rows[0];
+          }
+        }
+      }
+      if(!_map||!_data)return;
+      const _out=[];
+      _map.forEach((m,i)=>{
+        if(!m)return;
+        const raw=String(_data[i]==null?'':_data[i]).trim();
+        if(!raw||['—','-','–','Tr','tr','…','...'].indexOf(raw)>=0)return;
+        if(m[1]==='name'){_out.unshift(raw);return}
+        if(m[1]==='_')return;
+        const num=parseFloat(raw.replace(/[^\d.\-]/g,''));
+        if(!isFinite(num))return;
+        _out.push(m[2]+' '+(/kj|千焦/i.test(m[0])?Math.round(num/4.184):+num.toFixed(2)));
+      });
+      if(_out.length>1)text=_out.join(' ');
+    })();
     const parts=text.split(/\s+/);
     const name=parts[0];
     if(!name){alert('请以食物名称开头');return}
@@ -2218,7 +2302,7 @@ document.getElementById('root').addEventListener('click',function(e){
     const unitMatch=full.match(/^\s*\S+\s+(\d+)\s*(?:克|g)\b/);
     if(unitMatch) unit=unitMatch[1]+'g';
     // 能量: 严格区分千卡/千焦
-    let kcal=0;
+    let kcal=null;
     const kcalMatch=full.match(/(?:(?:千卡|kcal)\s*(\d+(?:\.\d+)?)|(\d+(?:\.\d+)?)\s*(?:千卡|kcal))/i);
     const kjMatch=full.match(/(?:(?:千焦|kJ|kj|KJ)\s*(\d+(?:\.\d+)?)|(\d+(?:\.\d+)?)\s*(?:千焦|kJ|kj|KJ))/);
     if(kcalMatch){kcal=parseFloat(kcalMatch[1]||kcalMatch[2])}
@@ -2232,35 +2316,49 @@ document.getElementById('root').addEventListener('click',function(e){
         else{kcal=val}
       }
     }
-    const protein=parseFloat(full.match(/(?:蛋白质|蛋白)\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-    const fat=parseFloat(full.match(/(?:脂肪|脂)\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-    const carbs=parseFloat(full.match(/(?:碳水|碳水化合物|碳)\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-    const fiber=parseFloat(full.match(/(?:膳食纤维|纤维|纤)\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-    const na=parseFloat(full.match(/钠\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-    const ca=parseFloat(full.match(/钙\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-    const fe=parseFloat(full.match(/铁\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-    const va=parseFloat(full.match(/(?:维生素A|维A|VA)\s*(\d+(?:\.\d+)?)/i)?.[1])||0;
-    const vc=parseFloat(full.match(/(?:维生素C|维C|VC)\s*(\d+(?:\.\d+)?)/i)?.[1])||0;
-    const chol=parseFloat(full.match(/(?:胆固醇|胆)\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-    const vb1=parseFloat(full.match(/(?:维生素B1|维B1|VB1|硫胺素)\s*(\d+(?:\.\d+)?)/i)?.[1])||0;
-    const vb2=parseFloat(full.match(/(?:维生素B2|维B2|VB2|核黄素)\s*(\d+(?:\.\d+)?)/i)?.[1])||0;
-    const niacin=parseFloat(full.match(/(?:烟酸|尼克酸|VPP)\s*(\d+(?:\.\d+)?)/i)?.[1])||0;
-    const mg=parseFloat(full.match(/(?:镁|Mg|mg)\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-  const zn=parseFloat(full.match(/(?:锌|Zn)\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-  const ka=parseFloat(full.match(/(?:钾|K|钾离子)\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-  const mn=parseFloat(full.match(/(?:锰|Mn)\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-  const cu=parseFloat(full.match(/(?:铜|Cu)\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-  const se=parseFloat(full.match(/(?:硒|Se)\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-  const ph=parseFloat(full.match(/(?:磷|P|Phosphorus)\s*(\d+(?:\.\d+)?)/)?.[1])||0;
-  const ve=parseFloat(full.match(/(?:维生素E|维E|VE)\s*(\d+(?:\.\d+)?)/i)?.[1])||0;
-    S.customForm={name,kcal:kcal||'',kj:'',carbs:carbs||'',protein:protein||'',fat:fat||'',fiber:fiber||'',unit,va:va||'',vb1:vb1||'',vb2:vb2||'',niacin:niacin||'',ve:ve||'',na:na||'',ca:ca||'',fe:fe||'',vc:vc||'',chol:chol||'',mg:mg||'',zn:zn||'',ka:ka||'',mn:mn||'',cu:cu||'',se:se||'',ph:ph||''};
+    const protein=parseFloat(full.match(/(?:蛋白质|蛋白)\s*(\d+(?:\.\d+)?)/)?.[1]);
+    const fat=parseFloat(full.match(/(?:脂肪|脂)\s*(\d+(?:\.\d+)?)/)?.[1]);
+    const carbs=parseFloat(full.match(/(?:碳水|碳水化合物|碳)\s*(\d+(?:\.\d+)?)/)?.[1]);
+    const fiber=parseFloat(full.match(/(?:膳食纤维|纤维|纤)\s*(\d+(?:\.\d+)?)/)?.[1]);
+    const na=parseFloat(full.match(/钠\s*(\d+(?:\.\d+)?)/)?.[1]);
+    const ca=parseFloat(full.match(/钙\s*(\d+(?:\.\d+)?)/)?.[1]);
+    const fe=parseFloat(full.match(/铁\s*(\d+(?:\.\d+)?)/)?.[1]);
+    const va=parseFloat(full.match(/(?:维生素A|维A|VA)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+    const vc=parseFloat(full.match(/(?:维生素C|维C|VC)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+    const chol=parseFloat(full.match(/(?:胆固醇|胆)\s*(\d+(?:\.\d+)?)/)?.[1]);
+    const vb1=parseFloat(full.match(/(?:维生素B1|维B1|VB1|硫胺素)(?!\d)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+    const vb2=parseFloat(full.match(/(?:维生素B2|维B2|VB2|核黄素)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+    const niacin=parseFloat(full.match(/(?:烟酸|焑酸|尼克酸|VPP)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+    const mg=parseFloat(full.match(/(?:镁|Mg\b)\s*(\d+(?:\.\d+)?)/)?.[1]);
+  const zn=parseFloat(full.match(/(?:锌|Zn\b)\s*(\d+(?:\.\d+)?)/)?.[1]);
+  const ka=parseFloat(full.match(/(?:钾|钾离子)\s*(\d+(?:\.\d+)?)/)?.[1]);
+  const mn=parseFloat(full.match(/(?:锰|Mn\b)\s*(\d+(?:\.\d+)?)/)?.[1]);
+  const cu=parseFloat(full.match(/(?:铜|Cu\b)\s*(\d+(?:\.\d+)?)/)?.[1]);
+  const se=parseFloat(full.match(/(?:硒|Se\b)\s*(\d+(?:\.\d+)?)/)?.[1]);
+  const ph=parseFloat(full.match(/(?:磷|Phosphorus)\s*(\d+(?:\.\d+)?)/)?.[1]);
+  const vd=parseFloat(full.match(/(?:维生素D3?|维D|VD)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+  const vk=parseFloat(full.match(/(?:维生素K|维K|VK)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+  const vb6=parseFloat(full.match(/(?:维生素B6|维B6|VB6|吡哆醇)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+  const vb12=parseFloat(full.match(/(?:维生素B12|维B12|VB12|钴胺素)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+  const folate=parseFloat(full.match(/(?:叶酸|维生素B9|维B9|VB9)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+  const pa=parseFloat(full.match(/(?:泛酸|维生素B5|维B5|VB5)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+  const biotin=parseFloat(full.match(/(?:生物素|维生素B7|维B7|VB7)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+  const choline=parseFloat(full.match(/(?:胆碱|总胆碱)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+  const iodine=parseFloat(full.match(/(?:碘)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+  const ve=parseFloat(full.match(/(?:维生素E|维E|VE)\s*(\d+(?:\.\d+)?)/i)?.[1]);
+    const _f=v=>Number.isFinite(v)?v:'';
+    S.customForm={name,kcal:_f(kcal),kj:'',carbs:_f(carbs),protein:_f(protein),fat:_f(fat),fiber:_f(fiber),unit,va:_f(va),vb1:_f(vb1),vb2:_f(vb2),niacin:_f(niacin),ve:_f(ve),na:_f(na),ca:_f(ca),fe:_f(fe),vc:_f(vc),chol:_f(chol),mg:_f(mg),zn:_f(zn),ka:_f(ka),mn:_f(mn),cu:_f(cu),se:_f(se),ph:_f(ph),vd:_f(vd),vk:_f(vk),vb6:_f(vb6),vb12:_f(vb12),folate:_f(folate),pa:_f(pa),biotin:_f(biotin),choline:_f(choline),iodine:_f(iodine)};
+    const _got=[['热量',kcal],['碳水',carbs],['蛋白',protein],['脂肪',fat],['膳食纤维',fiber],['钠',na],['钙',ca],['铁',fe],['维生素A',va],['维生素C',vc],['维B1(硫胺素)',vb1],['维B2(核黄素)',vb2],['烟酸',niacin],['维生素E',ve],['胆固醇',chol],['镁',mg],['锌',zn],['钾',ka],['锰',mn],['铜',cu],['硒',se],['磷',ph],['维生素D',vd],['维生素K',vk],['维生素B6',vb6],['维生素B12',vb12],['叶酸',folate],['泛酸',pa],['生物素',biotin],['胆碱',choline],['碘',iodine]];
+    const _unsup=[];  /* 这 9 项已在补丁11 加进表单，不再有「本表单没有的格子」 */
+    S.parseReport={ok:_got.filter(x=>Number.isFinite(x[1])).map(x=>x[0]),miss:_got.filter(x=>!Number.isFinite(x[1])).map(x=>x[0]),unsup:_unsup};
+    S.showCustomMicro=true;S.showCustomParse=false;
     render();
     setTimeout(()=>{const el=document.getElementById('cf-name');if(el)el.focus()},20);
     return;
   }
   if(t.dataset.pasteToCf&&S.clipboard){
     const f=S.clipboard;
-    S.customForm={name:f.name,kcal:f.kcal||'',kj:'',carbs:f.carbs||'',protein:f.protein||'',fat:f.fat||'',fiber:f.fiber||'',unit:f.unit||'100g',va:f.va||'',vb1:f.vb1||'',vb2:f.vb2||'',niacin:f.niacin||'',ve:f.ve||'',na:f.na||'',ca:f.ca||'',fe:f.fe||'',vc:f.vc||'',chol:f.chol||'',mg:f.mg||'',zn:f.zn||'',ka:f.ka||'',mn:f.mn||'',cu:f.cu||'',se:f.se||'',ph:f.ph||''};
+    S.customForm={name:f.name,kcal:nz(f.kcal),kj:'',carbs:nz(f.carbs),protein:nz(f.protein),fat:nz(f.fat),fiber:nz(f.fiber),unit:f.unit||'100g',va:nz(f.va),vb1:nz(f.vb1),vb2:nz(f.vb2),niacin:nz(f.niacin),ve:nz(f.ve),na:nz(f.na),ca:nz(f.ca),fe:nz(f.fe),vc:nz(f.vc),chol:nz(f.chol),mg:nz(f.mg),zn:nz(f.zn),ka:nz(f.ka),mn:nz(f.mn),cu:nz(f.cu),se:nz(f.se),ph:nz(f.ph),vd:nz(f.vd),vk:nz(f.vk),vb6:nz(f.vb6),vb12:nz(f.vb12),folate:nz(f.folate),pa:nz(f.pa),biotin:nz(f.biotin),choline:nz(f.choline),iodine:nz(f.iodine)};
     render();
     return;
   }
@@ -2273,7 +2371,10 @@ document.getElementById('root').addEventListener('click',function(e){
     const it=items&&items[idx];
     if(!it){return}
     const g=it._g||parseInt(it.unit)||100;
-    const pg=it._pg||{k:it.kcal/g,c:it.carbs/g,p:it.protein/g,f:it.fat/g,fi:(it.fiber||0)/g,va:(it.va||0)/g,vb1:(it.vb1||0)/g,vb2:(it.vb2||0)/g,niacin:(it.niacin||0)/g,ve:(it.ve||0)/g,na:(it.na||0)/g,ca:(it.ca||0)/g,fe:(it.fe||0)/g,vc:(it.vc||0)/g,chol:(it.chol||0)/g,mg:(it.mg||0)/g,zn:(it.zn||0)/g,ka:(it.ka||0)/g,mn:(it.mn||0)/g,cu:(it.cu||0)/g,se:(it.se||0)/g,ph:(it.ph||0)/g};
+    /* 食物数据改过之后，改一下克数就能把这条记录刷成最新值（否则一直用记账当时的旧快照） */
+    const _cfE=CUSTOM_FOOD_DB.find(x=>x.name===it.name),_ovE=FOOD_OVERRIDES[it.name];
+    const _freshPg=(_ovE&&_ovE.pg)||(_cfE&&_cfE.pg);
+    const pg=_freshPg||it._pg||{k:it.kcal/g,c:it.carbs/g,p:it.protein/g,f:it.fat/g,fi:(it.fiber||0)/g,va:(it.va||0)/g,vb1:(it.vb1||0)/g,vb2:(it.vb2||0)/g,niacin:(it.niacin||0)/g,ve:(it.ve||0)/g,na:(it.na||0)/g,ca:(it.ca||0)/g,fe:(it.fe||0)/g,vc:(it.vc||0)/g,chol:(it.chol||0)/g,mg:(it.mg||0)/g,zn:(it.zn||0)/g,ka:(it.ka||0)/g,mn:(it.mn||0)/g,cu:(it.cu||0)/g,se:(it.se||0)/g,ph:(it.ph||0)/g,vd:(it.vd||0)/g,vk:(it.vk||0)/g,vb6:(it.vb6||0)/g,vb12:(it.vb12||0)/g,folate:(it.folate||0)/g,pa:(it.pa||0)/g,biotin:(it.biotin||0)/g,choline:(it.choline||0)/g,iodine:(it.iodine||0)/g};
     S.modal=mealId;
     S.picking={food:{name:it.name,pg,base_g:100},grams:g,_editMode:{mealId,idx}};
     render();
@@ -2297,7 +2398,7 @@ document.getElementById('root').addEventListener('click',function(e){
     const idx=+t.dataset.copyCustom;
     const f=CUSTOM_FOOD_DB[idx];
     if(f){
-      S.clipboard={name:f.name,unit:f.unit||'100g',kcal:f.kcal,carbs:f.carbs,protein:f.protein,fat:f.fat,fiber:f.fiber||0,va:f.va||0,vb1:f.vb1||0,vb2:f.vb2||0,niacin:f.niacin||0,ve:f.ve||0,na:f.na||0,ca:f.ca||0,fe:f.fe||0,vc:f.vc||0,chol:f.chol||0,mg:f.mg||0,zn:f.zn||0,ka:f.ka||0,mn:f.mn||0,cu:f.cu||0,se:f.se||0,ph:f.ph||0,_g:f.base_g||100,_from:'custom'};
+      S.clipboard={name:f.name,unit:f.unit||'100g',kcal:f.kcal,carbs:f.carbs,protein:f.protein,fat:f.fat,fiber:f.fiber||0,va:f.va||0,vb1:f.vb1||0,vb2:f.vb2||0,niacin:f.niacin||0,ve:f.ve||0,na:f.na||0,ca:f.ca||0,fe:f.fe||0,vc:f.vc||0,chol:f.chol||0,mg:f.mg||0,zn:f.zn||0,ka:f.ka||0,mn:f.mn||0,cu:f.cu||0,se:f.se||0,ph:f.ph||0,vd:f.vd||0,vk:f.vk||0,vb6:f.vb6||0,vb12:f.vb12||0,folate:f.folate||0,pa:f.pa||0,biotin:f.biotin||0,choline:f.choline||0,iodine:f.iodine||0,_g:f.base_g||100,_from:'custom'};
       t.textContent='✓';t.classList.add('copied');
       setTimeout(()=>{t.innerHTML=ico('copy',13);t.classList.remove('copied')},1500);
     }
@@ -2307,7 +2408,7 @@ document.getElementById('root').addEventListener('click',function(e){
   if(t.dataset.pasteFood!==undefined&&S.clipboard){
     const f=S.clipboard;
     const g=f._g||parseInt(f.unit)||100;
-    getDayData(S.today)[S.modal].push({name:f.name,unit:f.unit,kcal:f.kcal,carbs:f.carbs,protein:f.protein,fat:f.fat,fiber:f.fiber||0,va:f.va||0,vb1:f.vb1||0,vb2:f.vb2||0,niacin:f.niacin||0,ve:f.ve||0,na:f.na||0,ca:f.ca||0,fe:f.fe||0,vc:f.vc||0,chol:f.chol||0,mg:f.mg||0,zn:f.zn||0,ka:f.ka||0,mn:f.mn||0,cu:f.cu||0,se:f.se||0,ph:f.ph||0,_g:g,_pg:{k:f.kcal/g,c:f.carbs/g,p:f.protein/g,f:f.fat/g,fi:(f.fiber||0)/g,va:(f.va||0)/g,vb1:(f.vb1||0)/g,vb2:(f.vb2||0)/g,niacin:(f.niacin||0)/g,ve:(f.ve||0)/g,na:(f.na||0)/g,ca:(f.ca||0)/g,fe:(f.fe||0)/g,vc:(f.vc||0)/g,chol:(f.chol||0)/g,mg:(f.mg||0)/g,zn:(f.zn||0)/g,ka:(f.ka||0)/g,mn:(f.mn||0)/g,cu:(f.cu||0)/g,se:(f.se||0)/g,ph:(f.ph||0)/g}});
+    getDayData(S.today)[S.modal].push({name:f.name,unit:f.unit,kcal:f.kcal,carbs:f.carbs,protein:f.protein,fat:f.fat,fiber:f.fiber||0,va:f.va||0,vb1:f.vb1||0,vb2:f.vb2||0,niacin:f.niacin||0,ve:f.ve||0,na:f.na||0,ca:f.ca||0,fe:f.fe||0,vc:f.vc||0,chol:f.chol||0,mg:f.mg||0,zn:f.zn||0,ka:f.ka||0,mn:f.mn||0,cu:f.cu||0,se:f.se||0,ph:f.ph||0,vd:f.vd||0,vk:f.vk||0,vb6:f.vb6||0,vb12:f.vb12||0,folate:f.folate||0,pa:f.pa||0,biotin:f.biotin||0,choline:f.choline||0,iodine:f.iodine||0,_g:g,_pg:{k:f.kcal/g,c:f.carbs/g,p:f.protein/g,f:f.fat/g,fi:(f.fiber||0)/g,va:(f.va||0)/g,vb1:(f.vb1||0)/g,vb2:(f.vb2||0)/g,niacin:(f.niacin||0)/g,ve:(f.ve||0)/g,na:(f.na||0)/g,ca:(f.ca||0)/g,fe:(f.fe||0)/g,vc:(f.vc||0)/g,chol:(f.chol||0)/g,mg:(f.mg||0)/g,zn:(f.zn||0)/g,ka:(f.ka||0)/g,mn:(f.mn||0)/g,cu:(f.cu||0)/g,se:(f.se||0)/g,ph:(f.ph||0)/g,vd:(f.vd||0)/g,vk:(f.vk||0)/g,vb6:(f.vb6||0)/g,vb12:(f.vb12||0)/g,folate:(f.folate||0)/g,pa:(f.pa||0)/g,biotin:(f.biotin||0)/g,choline:(f.choline||0)/g,iodine:(f.iodine||0)/g}});
     S.clipboard=null;
     render();
     return;
@@ -2339,7 +2440,7 @@ document.getElementById('root').addEventListener('click',function(e){
       if(res)res.innerHTML=`「${names}」已存在于当前餐次<br><button class="paste-btn" data-batch-parse="1" data-confirmed="1" style="margin-top:6px;padding:7px;font-size:12px">确认重复添加</button><br><span style="font-size:10px;color:var(--color-text-secondary)">或修改克数后重新解析</span>`;
       return;
     }
-    found.forEach(i=>{const g=i.grams||100;meal.push({name:i.name,unit:i.unit,kcal:i.kcal,carbs:i.carbs,protein:i.protein,fat:i.fat,fiber:i.fiber||0,va:i.va||0,vb1:i.vb1||0,vb2:i.vb2||0,niacin:i.niacin||0,ve:i.ve||0,na:i.na||0,ca:i.ca||0,fe:i.fe||0,vc:i.vc||0,chol:i.chol||0,mg:i.mg||0,zn:i.zn||0,ka:i.ka||0,mn:i.mn||0,cu:i.cu||0,se:i.se||0,ph:i.ph||0,_g:g,_pg:{k:i.kcal/g,c:i.carbs/g,p:i.protein/g,f:i.fat/g,fi:(i.fiber||0)/g,va:(i.va||0)/g,vb1:(i.vb1||0)/g,vb2:(i.vb2||0)/g,niacin:(i.niacin||0)/g,ve:(i.ve||0)/g,na:(i.na||0)/g,ca:(i.ca||0)/g,fe:(i.fe||0)/g,vc:(i.vc||0)/g,chol:(i.chol||0)/g,mg:(i.mg||0)/g,zn:(i.zn||0)/g,ka:(i.ka||0)/g,mn:(i.mn||0)/g,cu:(i.cu||0)/g,se:(i.se||0)/g,ph:(i.ph||0)/g}})});
+    found.forEach(i=>{const g=i.grams||100;meal.push({name:i.name,unit:i.unit,kcal:i.kcal,carbs:i.carbs,protein:i.protein,fat:i.fat,fiber:i.fiber||0,va:i.va||0,vb1:i.vb1||0,vb2:i.vb2||0,niacin:i.niacin||0,ve:i.ve||0,na:i.na||0,ca:i.ca||0,fe:i.fe||0,vc:i.vc||0,chol:i.chol||0,mg:i.mg||0,zn:i.zn||0,ka:i.ka||0,mn:i.mn||0,cu:i.cu||0,se:i.se||0,ph:i.ph||0,vd:i.vd||0,vk:i.vk||0,vb6:i.vb6||0,vb12:i.vb12||0,folate:i.folate||0,pa:i.pa||0,biotin:i.biotin||0,choline:i.choline||0,iodine:i.iodine||0,_g:g,_pg:{k:i.kcal/g,c:i.carbs/g,p:i.protein/g,f:i.fat/g,fi:(i.fiber||0)/g,va:(i.va||0)/g,vb1:(i.vb1||0)/g,vb2:(i.vb2||0)/g,niacin:(i.niacin||0)/g,ve:(i.ve||0)/g,na:(i.na||0)/g,ca:(i.ca||0)/g,fe:(i.fe||0)/g,vc:(i.vc||0)/g,chol:(i.chol||0)/g,mg:(i.mg||0)/g,zn:(i.zn||0)/g,ka:(i.ka||0)/g,mn:(i.mn||0)/g,cu:(i.cu||0)/g,se:(i.se||0)/g,ph:(i.ph||0)/g,vd:(i.vd||0)/g,vk:(i.vk||0)/g,vb6:(i.vb6||0)/g,vb12:(i.vb12||0)/g,folate:(i.folate||0)/g,pa:(i.pa||0)/g,biotin:(i.biotin||0)/g,choline:(i.choline||0)/g,iodine:(i.iodine||0)/g}})});
     let msg=`✓ 已添加 ${found.length} 项到${MEALS.find(m=>m.id===S.modal).name}`;
     if(found.length<=5)msg+=`<br>${found.map(i=>i.name).join('、')}`;
     if(notFound.length)msg+=`<br>未识别：${notFound.map(i=>i.name).join('、')}（可手动搜索添加）`;
@@ -2406,12 +2507,14 @@ try{
 }catch(e){console.warn('输入处理异常:',e)}
 });
 
-function openModal(id){S.modal=id;S.modalTab='recent';S.search='';S.activeCat='全部';S.picking=null;S.showSaveMeal=false;S.showCustomForm=false;render()}
-function closeModal(){S.modal=null;S.picking=null;S.showSaveMeal=false;S.showCustomForm=false;S.showCustomMicro=false;S.showCustomParse=false;render()}
+function openModal(id){S.modal=id;S.modalTab='recent';S.search='';S.activeCat='全部';S.picking=null;S.showSaveMeal=false;S.showCustomForm=false;S.editingCustomIdx=null;S.editingSystemKey=null;S.showMyFoods=false;resetCustomForm();render()}
+function closeModal(){S.modal=null;S.picking=null;S.showSaveMeal=false;S.showCustomForm=false;S.showCustomMicro=false;S.showCustomParse=false;S.editingCustomIdx=null;S.editingSystemKey=null;S.showMyFoods=false;S.parseReport=null;render()}
 function startPicking(src,idx,isCustom){
   if(isCustom){const food=CUSTOM_FOOD_DB[idx];if(!food)return;S.picking={food,grams:food.base_g||100};render();setTimeout(()=>{const el=document.getElementById('gram-inp');if(el){el.focus();el.select()}},30);return}
-  const food=src==='recent'?S.recentFoods[idx]:FOOD_DB[idx];
-  if(!food)return;
+  const _fb=src==='recent'?S.recentFoods[idx]:FOOD_DB[idx];if(!_fb)return;
+  /* 取数一律以最新「自定义库 / 覆盖层」为准：「最近吃过」只是快照，食物数据改过就会过期 */
+  const _cf=CUSTOM_FOOD_DB.find(x=>x.name===_fb.name),_ov=FOOD_OVERRIDES[_fb.name];
+  const food=_ov?{..._fb,..._ov}:(_cf?{..._cf}:_fb);
   S.picking={food,grams:food.base_g||100};
   render();
   setTimeout(()=>{const el=document.getElementById('gram-inp');if(el){el.focus();el.select();}},30);
@@ -2419,7 +2522,7 @@ function startPicking(src,idx,isCustom){
 function setGrams(g){if(S.picking&&g>=1){S.picking.grams=g;render();setTimeout(()=>{const el=document.getElementById('gram-inp');if(el)el.focus();},20)}}
 function confirmAdd(){
   const{food,grams}=S.picking,n=calcN(food,grams);
-  const item={name:food.name,unit:`${grams}g`,kcal:n.kcal,carbs:n.carbs,protein:n.protein,fat:n.fat,fiber:n.fiber,va:n.va||0,vb1:n.vb1||0,vb2:n.vb2||0,niacin:n.niacin||0,ve:n.ve||0,na:n.na||0,ca:n.ca||0,fe:n.fe||0,vc:n.vc||0,chol:n.chol||0,mg:n.mg||0,zn:n.zn||0,ka:n.ka||0,mn:n.mn||0,cu:n.cu||0,se:n.se||0,ph:n.ph||0,_g:grams,_pg:food.pg};
+  const item={name:food.name,unit:`${grams}g`,kcal:n.kcal,carbs:n.carbs,protein:n.protein,fat:n.fat,fiber:n.fiber,va:n.va||0,vb1:n.vb1||0,vb2:n.vb2||0,niacin:n.niacin||0,ve:n.ve||0,na:n.na||0,ca:n.ca||0,fe:n.fe||0,vc:n.vc||0,chol:n.chol||0,mg:n.mg||0,zn:n.zn||0,ka:n.ka||0,mn:n.mn||0,cu:n.cu||0,se:n.se||0,ph:n.ph||0,vd:n.vd||0,vk:n.vk||0,vb6:n.vb6||0,vb12:n.vb12||0,folate:n.folate||0,pa:n.pa||0,biotin:n.biotin||0,choline:n.choline||0,iodine:n.iodine||0,_g:grams,_pg:food.pg};
   if(S.picking._editMode){
     const{mealId,idx}=S.picking._editMode;
     const items=getDayData(S.today)[mealId];
@@ -2433,9 +2536,51 @@ function confirmAdd(){
   closeModal();pushNutrition();
 }
 function removeItem(mealId,idx){getDayData(S.today)[mealId].splice(idx,1);saveData();pushNutrition();render()}
-function useCustomMeal(i){const cm=S.customMeals[i];if(!cm)return;const day=getDayData(S.today);cm.foods.forEach(f=>{const g=parseInt(f.unit)||100;day[S.modal].push({...f,_g:g,_pg:{k:f.kcal/g,c:f.carbs/g,p:f.protein/g,f:f.fat/g,fi:(f.fiber||0)/g,va:(f.va||0)/g,vb1:(f.vb1||0)/g,vb2:(f.vb2||0)/g,niacin:(f.niacin||0)/g,ve:(f.ve||0)/g,na:(f.na||0)/g,ca:(f.ca||0)/g,fe:(f.fe||0)/g,vc:(f.vc||0)/g,chol:(f.chol||0)/g,mg:(f.mg||0)/g,zn:(f.zn||0)/g,ka:(f.ka||0)/g,mn:(f.mn||0)/g,cu:(f.cu||0)/g,se:(f.se||0)/g,ph:(f.ph||0)/g}})});closeModal()}
+function useCustomMeal(i){const cm=S.customMeals[i];if(!cm)return;const day=getDayData(S.today);cm.foods.forEach(f=>{const g=parseInt(f.unit)||100;day[S.modal].push({...f,_g:g,_pg:{k:f.kcal/g,c:f.carbs/g,p:f.protein/g,f:f.fat/g,fi:(f.fiber||0)/g,va:(f.va||0)/g,vb1:(f.vb1||0)/g,vb2:(f.vb2||0)/g,niacin:(f.niacin||0)/g,ve:(f.ve||0)/g,na:(f.na||0)/g,ca:(f.ca||0)/g,fe:(f.fe||0)/g,vc:(f.vc||0)/g,chol:(f.chol||0)/g,mg:(f.mg||0)/g,zn:(f.zn||0)/g,ka:(f.ka||0)/g,mn:(f.mn||0)/g,cu:(f.cu||0)/g,se:(f.se||0)/g,ph:(f.ph||0)/g,vd:(f.vd||0)/g,vk:(f.vk||0)/g,vb6:(f.vb6||0)/g,vb12:(f.vb12||0)/g,folate:(f.folate||0)/g,pa:(f.pa||0)/g,biotin:(f.biotin||0)/g,choline:(f.choline||0)/g,iodine:(f.iodine||0)/g}})});closeModal()}
 function deleteCustomMeal(i){if(confirm('确认删除？')){S.customMeals.splice(i,1);render()}}
 function saveCustomMeal(){const inp=document.getElementById('save-meal-inp');const name=inp?inp.value.trim():'';if(!name){alert('请输入套餐名称');return}const foods=JSON.parse(JSON.stringify(getDayData(S.today)[S.modal]||[]));if(!foods.length){alert('当前餐次还没有食物');return}S.customMeals.push({name,foods});S.showSaveMeal=false;render()}
+/* 数值回填：0 是有效值要显示成 0；空/非数字才留空 */
+function nz(v){return (v===''||v===null||v===undefined||isNaN(+v))?'':+v}
+function resetCustomForm(){S.parseReport=null;S.customForm={name:'',kcal:'',kj:'',carbs:'',protein:'',fat:'',fiber:'',unit:'',va:'',vb1:'',vb2:'',niacin:'',ve:'',na:'',ca:'',fe:'',vc:'',chol:'',mg:'',zn:'',ka:'',mn:'',cu:'',se:'',ph:'',vd:'',vk:'',vb6:'',vb12:'',folate:'',pa:'',biotin:'',choline:'',iodine:''}}
+/* 编辑系统自带食物：回填当前值（有覆盖就用覆盖值） */
+function editSystemFood(origName){
+  const base=FOOD_DB.find(f=>f.name===origName);if(!base)return;
+  const cur=FOOD_OVERRIDES[origName]||base;
+  S.editingSystemKey=origName;S.editingCustomIdx=null;S.parseReport=null;
+  S.customForm={name:cur.name,kcal:cur.kcal,kj:'',carbs:nz(cur.carbs),protein:nz(cur.protein),fat:nz(cur.fat),fiber:nz(cur.fiber),unit:cur.unit||((cur.base_g||100)+'g'),va:nz(cur.va),vb1:nz(cur.vb1),vb2:nz(cur.vb2),niacin:nz(cur.niacin),ve:nz(cur.ve),na:nz(cur.na),ca:nz(cur.ca),fe:nz(cur.fe),vc:nz(cur.vc),chol:nz(cur.chol),mg:nz(cur.mg),zn:nz(cur.zn),ka:nz(cur.ka),mn:nz(cur.mn),cu:nz(cur.cu),se:nz(cur.se),ph:nz(cur.ph),vd:nz(cur.vd),vk:nz(cur.vk),vb6:nz(cur.vb6),vb12:nz(cur.vb12),folate:nz(cur.folate),pa:nz(cur.pa),biotin:nz(cur.biotin),choline:nz(cur.choline),iodine:nz(cur.iodine)};
+  S.modalTab='search';S.activeCat='全部';S.picking=null;S.showCustomForm=true;S.showCustomMicro=false;S.showCustomParse=false;
+  render();
+  setTimeout(()=>{const el=document.getElementById('modal-list');if(el)el.scrollTop=el.scrollHeight},40);
+}
+/* 撤销对系统食物的修改，回到原库数值 */
+function resetSystemFood(origName){
+  if(!FOOD_OVERRIDES[origName])return;
+  delete FOOD_OVERRIDES[origName];
+  localStorage.setItem('nutrilog_overrides',JSON.stringify(FOOD_OVERRIDES));
+  if(typeof pushMeta==='function')pushMeta();
+  render();
+}
+/* 编辑自定义食物：把那一条回填进「手动输入」表单，点「保存修改」才写回库 */
+function editCustomFood(idx){
+  const f=CUSTOM_FOOD_DB[idx];if(!f)return;
+  S.editingCustomIdx=idx;S.parseReport=null;
+  S.customForm={name:f.name,kcal:f.kcal,kj:'',carbs:nz(f.carbs),protein:nz(f.protein),fat:nz(f.fat),fiber:nz(f.fiber),unit:f.unit||((f.base_g||100)+'g'),va:nz(f.va),vb1:nz(f.vb1),vb2:nz(f.vb2),niacin:nz(f.niacin),ve:nz(f.ve),na:nz(f.na),ca:nz(f.ca),fe:nz(f.fe),vc:nz(f.vc),chol:nz(f.chol),mg:nz(f.mg),zn:nz(f.zn),ka:nz(f.ka),mn:nz(f.mn),cu:nz(f.cu),se:nz(f.se),ph:nz(f.ph),vd:nz(f.vd),vk:nz(f.vk),vb6:nz(f.vb6),vb12:nz(f.vb12),folate:nz(f.folate),pa:nz(f.pa),biotin:nz(f.biotin),choline:nz(f.choline),iodine:nz(f.iodine)};
+  S.modalTab='search';S.activeCat='全部';S.picking=null;S.showCustomForm=true;S.showCustomMicro=false;S.showCustomParse=false;
+  render();
+  setTimeout(()=>{const el=document.getElementById('modal-list');if(el)el.scrollTop=el.scrollHeight},40);
+}
+/* 从自定义食物库删除：只清库和「最近吃过」，已记录的饮食历史不动 */
+function deleteCustomFood(idx){
+  const f=CUSTOM_FOOD_DB[idx];if(!f)return;
+  if(!confirm('从自定义食物库删除「'+f.name+'」？\n已记录的历史不受影响。'))return;
+  CUSTOM_FOOD_DB.splice(idx,1);
+  S.recentFoods=S.recentFoods.filter(r=>r.name!==f.name);
+  if(S.editingCustomIdx===idx)S.editingCustomIdx=null;
+  else if(S.editingCustomIdx!=null&&S.editingCustomIdx>idx)S.editingCustomIdx--;
+  localStorage.setItem('nutrilog_custom',JSON.stringify(CUSTOM_FOOD_DB));
+  if(typeof pushMeta==='function')pushMeta();
+  render();
+}
 function addCustomFood(){
   const name=document.getElementById('cf-name')?.value.trim();
   let kcal=+document.getElementById('cf-kcal')?.value;
@@ -2465,22 +2610,54 @@ function addCustomFood(){
   const cu=+document.getElementById('cf-cu')?.value||0;
   const se=+document.getElementById('cf-se')?.value||0;
   const ph=+document.getElementById('cf-ph')?.value||0;
+  const vd=+document.getElementById('cf-vd')?.value||0;
+  const vk=+document.getElementById('cf-vk')?.value||0;
+  const vb6=+document.getElementById('cf-vb6')?.value||0;
+  const vb12=+document.getElementById('cf-vb12')?.value||0;
+  const folate=+document.getElementById('cf-folate')?.value||0;
+  const pa=+document.getElementById('cf-pa')?.value||0;
+  const biotin=+document.getElementById('cf-biotin')?.value||0;
+  const choline=+document.getElementById('cf-choline')?.value||0;
+  const iodine=+document.getElementById('cf-iodine')?.value||0;
   const base_g=100;
-  const pg={k:kcal/base_g,c:carbs/base_g,p:protein/base_g,f:fat/base_g,fi:fiber/base_g,va:va/base_g,vb1:vb1/base_g,vb2:vb2/base_g,niacin:niacin/base_g,ve:ve/base_g,na:na/base_g,ca:ca/base_g,fe:fe/base_g,vc:vc/base_g,chol:chol/base_g,mg:mg/base_g,zn:zn/base_g,ka:ka/base_g,mn:mn/base_g,cu:cu/base_g,se:se/base_g,ph:ph/base_g};
-  getDayData(S.today)[S.modal].push({name,unit,kcal,carbs,protein,fat,fiber,va,vb1,vb2,niacin,ve,na,ca,fe,vc,chol,mg,zn,ka,mn,cu,se,ph,_g:base_g,_pg:pg});
+  const pg={k:kcal/base_g,c:carbs/base_g,p:protein/base_g,f:fat/base_g,fi:fiber/base_g,va:va/base_g,vb1:vb1/base_g,vb2:vb2/base_g,niacin:niacin/base_g,ve:ve/base_g,na:na/base_g,ca:ca/base_g,fe:fe/base_g,vc:vc/base_g,chol:chol/base_g,mg:mg/base_g,zn:zn/base_g,ka:ka/base_g,mn:mn/base_g,cu:cu/base_g,se:se/base_g,ph:ph/base_g,vd:vd/base_g,vk:vk/base_g,vb6:vb6/base_g,vb12:vb12/base_g,folate:folate/base_g,pa:pa/base_g,biotin:biotin/base_g,choline:choline/base_g,iodine:iodine/base_g};
+  const entry={name,c:'自定义',kcal,carbs,protein,fat,fiber,va,vb1,vb2,niacin,ve,na,ca,fe,vc,chol,mg,zn,ka,mn,cu,se,ph,vd,vk,vb6,vb12,folate,pa,biotin,choline,iodine,base_g,unit,pg};
+  /* 编辑系统自带食物 → 只写覆盖层，原库不动，可一键恢复原值 */
+  if(S.editingSystemKey){
+    const _ob=FOOD_DB.find(x=>x.name===S.editingSystemKey);
+    FOOD_OVERRIDES[S.editingSystemKey]={...entry,c:(_ob&&_ob.c)||'其他'};
+    S.recentFoods=S.recentFoods.map(f=>f.name===S.editingSystemKey?{...entry,c:(_ob&&_ob.c)||'其他'}:f);
+    localStorage.setItem('nutrilog_overrides',JSON.stringify(FOOD_OVERRIDES));
+    if(typeof pushMeta==='function')pushMeta();
+    S.editingSystemKey=null;resetCustomForm();S.showCustomForm=false;closeModal();pushNutrition();
+    return;
+  }
+  /* 编辑态：只改食物库，不往今天记账；改名时同步「最近吃过」里的旧名 */
+  if(S.editingCustomIdx!=null&&CUSTOM_FOOD_DB[S.editingCustomIdx]){
+    const oldName=CUSTOM_FOOD_DB[S.editingCustomIdx].name;
+    CUSTOM_FOOD_DB[S.editingCustomIdx]=entry;
+    /* 「最近吃过」是快照缓存：整条换成新数据，只改名会让它继续拿旧营养值 */
+    S.recentFoods=S.recentFoods.map(f=>f.name===oldName?{...entry}:f);
+    localStorage.setItem('nutrilog_custom',JSON.stringify(CUSTOM_FOOD_DB));
+    if(typeof pushMeta==='function')pushMeta();
+    S.editingCustomIdx=null;resetCustomForm();S.showCustomForm=false;closeModal();pushNutrition();
+    return;
+  }
+  getDayData(S.today)[S.modal].push({name,unit,kcal,carbs,protein,fat,fiber,va,vb1,vb2,niacin,ve,na,ca,fe,vc,chol,mg,zn,ka,mn,cu,se,ph,vd,vk,vb6,vb12,folate,pa,biotin,choline,iodine,_g:base_g,_pg:pg});
   // 加到最近吃过 + 自定义数据库
   S.recentFoods=S.recentFoods.filter(f=>f.name!==name);
-  S.recentFoods.unshift({name,kcal,carbs,protein,fat,fiber,va,vb1,vb2,niacin,ve,na,ca,fe,vc,chol,mg,zn,ka,mn,cu,se,ph,base_g,pg});
+  S.recentFoods.unshift({name,kcal,carbs,protein,fat,fiber,va,vb1,vb2,niacin,ve,na,ca,fe,vc,chol,mg,zn,ka,mn,cu,se,ph,vd,vk,vb6,vb12,folate,pa,biotin,choline,iodine,base_g,pg});
   if(S.recentFoods.length>10)S.recentFoods.pop();
   // 持久化
   CUSTOM_FOOD_DB=CUSTOM_FOOD_DB.filter(f=>f.name!==name);
-  CUSTOM_FOOD_DB.unshift({name,c:'自定义',kcal,carbs,protein,fat,fiber,va,vb1,vb2,niacin,ve,na,ca,fe,vc,chol,mg,zn,ka,mn,cu,se,ph,base_g,unit,pg});
+  CUSTOM_FOOD_DB.unshift(entry);
   if(CUSTOM_FOOD_DB.length>50)CUSTOM_FOOD_DB.pop();
   localStorage.setItem('nutrilog_custom',JSON.stringify(CUSTOM_FOOD_DB));
   if(typeof pushMeta==='function')pushMeta();
   S.showCustomForm=false;closeModal();pushNutrition();
 }
-function fuzzyFindFood(name){
+function fuzzyFindFood(name){const r=_fuzzyFindFoodRaw(name);if(!r)return r;const o=FOOD_OVERRIDES[r.name];return o?{...r,...o}:r}
+function _fuzzyFindFoodRaw(name){
   let db=FOOD_DB.find(f=>f.name===name);
   if(db) return db;
   const matches=FOOD_DB.filter(f=>f.name.includes(name));
@@ -2523,7 +2700,7 @@ function buildBackupPkg(){
     exported:new Date().toISOString(),
     body:{bodyLog:S.bodyLog,cycleAnchor:S.cycleAnchor,profile:S.body},
     training:{trainingLog:S.trainingLog},
-    diet:{data:S.data,goals:S.goals,customFoods:CUSTOM_FOOD_DB,recentFoods:S.recentFoods,customMeals:S.customMeals},
+    diet:{data:S.data,goals:S.goals,customFoods:CUSTOM_FOOD_DB,foodOverrides:FOOD_OVERRIDES,recentFoods:S.recentFoods,customMeals:S.customMeals},
     settings:S.settings
   };
 }
@@ -2636,7 +2813,7 @@ async function importData(){
   }
   pickAndImport();
 }
-// ── 自动推送营养数据到BOS服务器（真实汇总） ──
+// ── 汇总当日营养数据 ──
 function pushNutrition(){
   try{
     const day=getDayData(S.today),all=[...day.breakfast,...day.lunch,...day.dinner,...day.snack];
@@ -2655,19 +2832,18 @@ function pushNutrition(){
       zn:Math.round(tot.zn)
     };
     localStorage.setItem('bos_diet_sync',JSON.stringify(pkg));
-    // 直接POST到BOS服务器，接收后写 nutrition_{date}.json（供23:30自动化同步腾讯文档）
     
   }catch(e){console.warn('推送失败:',e)}
 }
-// ── 同步饮食档案+自定义食物到BOS服务器（三方同步：App→服务器落盘） ──
+// ── 同步饮食档案+自定义食物 ──
 function pushMeta(){
   try{
-    const meta={updatedAt:new Date().toISOString(),body:S.body,goals:S.goals,customFoods:CUSTOM_FOOD_DB,recentFoods:S.recentFoods};
+    const meta={updatedAt:new Date().toISOString(),body:S.body,goals:S.goals,customFoods:CUSTOM_FOOD_DB,foodOverrides:FOOD_OVERRIDES,recentFoods:S.recentFoods};
     localStorage.setItem('bos_diet_meta',JSON.stringify(meta));
     
   }catch(e){console.warn('meta推送失败',e)}
 }
-// ── 启动时从BOS服务器拉回档案+自定义食物（三方同步：服务器→任意浏览器） ──
+// ── 启动时拉回档案+自定义食物 ──
 function loadMeta(){
   try{
     
@@ -2679,14 +2855,15 @@ function applyImportPkg(pkg){
     /* v3 三域：身体 / 训练 / 饮食 */
     if(pkg.body){S.bodyLog=pkg.body.bodyLog||{};S.cycleAnchor=pkg.body.cycleAnchor||null;if(pkg.body.profile)S.body=pkg.body.profile}
     if(pkg.training&&pkg.training.trainingLog){S.trainingLog=pkg.training.trainingLog;for(const _d in S.trainingLog)S.trainingLog[_d]=normTraining(S.trainingLog[_d]);}
-    if(pkg.diet){S.data=pkg.diet.data||{};if(pkg.diet.goals)S.goals=pkg.diet.goals;if(pkg.diet.customFoods){CUSTOM_FOOD_DB=pkg.diet.customFoods;localStorage.setItem('nutrilog_custom',JSON.stringify(CUSTOM_FOOD_DB))}if(pkg.diet.recentFoods)S.recentFoods=pkg.diet.recentFoods;if(pkg.diet.customMeals)S.customMeals=pkg.diet.customMeals}
+    if(pkg.diet&&!Array.isArray(pkg.diet)){if(pkg.diet.data&&typeof pkg.diet.data==='object'&&!Array.isArray(pkg.diet.data))S.data=pkg.diet.data;if(pkg.diet.goals)S.goals=pkg.diet.goals;if(pkg.diet.customFoods){CUSTOM_FOOD_DB=pkg.diet.customFoods;localStorage.setItem('nutrilog_custom',JSON.stringify(CUSTOM_FOOD_DB))}if(pkg.diet.foodOverrides){FOOD_OVERRIDES=pkg.diet.foodOverrides;localStorage.setItem('nutrilog_overrides',JSON.stringify(FOOD_OVERRIDES))}if(pkg.diet.recentFoods)S.recentFoods=pkg.diet.recentFoods;if(pkg.diet.customMeals)S.customMeals=pkg.diet.customMeals}
     if(pkg.settings)S.settings=Object.assign(bosDefaultSettings(),pkg.settings);
   }else{
     /* v2 旧格式（仅饮食域）兼容 */
-    S.data=pkg.data||{};
+    if(pkg.data&&typeof pkg.data==='object'&&!Array.isArray(pkg.data))S.data=pkg.data;
     if(pkg.goals) S.goals=pkg.goals;
     if(pkg.body) S.body=pkg.body;
     if(pkg.customFoods){CUSTOM_FOOD_DB=pkg.customFoods;localStorage.setItem('nutrilog_custom',JSON.stringify(CUSTOM_FOOD_DB))}
+    if(pkg.foodOverrides){FOOD_OVERRIDES=pkg.foodOverrides;localStorage.setItem('nutrilog_overrides',JSON.stringify(FOOD_OVERRIDES))}
     if(pkg.recentFoods) S.recentFoods=pkg.recentFoods;
     if(pkg.customMeals) S.customMeals=pkg.customMeals;
   }
@@ -2713,10 +2890,6 @@ function handleImport(file){
   reader.readAsText(file);
 }
 
-const BOS_CONFIG={
-  wechat:'kycilia',   // K哥微信（漏斗入口，默认不教替换）
-  douyin:'K哥（赛博教练）'
-};
 const TRAIN_TPLS=[
   {key:'squat',name:'深蹲主导日',items:[['深蹲',5,5],['罗马尼亚硬拉',3,8],['腿屈伸',3,12]]},
   {key:'push',name:'推日',items:[['卧推',5,5],['肩上推举',3,8],['双杠臂屈伸',3,10]]},
@@ -2831,7 +3004,7 @@ function matchMyPlanToday(){
   return hit>=0?{plan:my[hit],idx:hit,title:title}:null;
 }
 
-// 页面加载时：先从BOS服务器拉回档案+自定义食物（三方同步：换浏览器/预览自动恢复），再推送今日已有记录
+// 页面加载时：先拉回档案+自定义食物，再推送今日已有记录
 (function(){try{loadMeta();}catch(e){}
 try{const day=getDayData(S.today),all=[...day.breakfast,...day.lunch,...day.dinner,...day.snack];if(all.length)pushNutrition();}catch(e){}})();
 // ════════════════════════════════════════════════════
@@ -2842,8 +3015,8 @@ function offsetDate(b,n){const d=new Date(b+'T00:00:00');d.setDate(d.getDate()+n
 function calcPresets(bmr,act){const tdee=Math.round(bmr*act);function m(k,rc,rp,rf){return{kcal:k,carbs:Math.round(k*rc/4),protein:Math.round(k*rp/4),fat:Math.round(k*rf/9)}}return[{key:'fat',name:'减脂',icon:ico('flame',15),macros:m(Math.round(tdee*.8),.40,.30,.30)},{key:'maintain',name:'维持',icon:ico('scale',15),macros:m(tdee,.50,.25,.25)},{key:'muscle',name:'增肌',icon:ico('trend',15),macros:m(Math.round(tdee*1.12),.45,.30,.25)}]}
 function calcBMR(g,w,h,a){return g==='female'?10*w+6.25*h-5*a-161:10*w+6.25*h-5*a+5}
 function macroPcts(t){const cK=t.carbs*4,pK=t.protein*4,fK=t.fat*9,T=cK+pK+fK||1;return{c:Math.round(cK/T*100),p:Math.round(pK/T*100),f:Math.round(fK/T*100)}}
-function totalMacros(items){return items.reduce((a,i)=>({kcal:a.kcal+i.kcal,carbs:a.carbs+i.carbs,protein:a.protein+i.protein,fat:a.fat+i.fat,fiber:a.fiber+(i.fiber||0),va:a.va+(i.va||0),vb1:a.vb1+(i.vb1||0),vb2:a.vb2+(i.vb2||0),niacin:a.niacin+(i.niacin||0),ve:a.ve+(i.ve||0),na:a.na+(i.na||0),ca:a.ca+(i.ca||0),fe:a.fe+(i.fe||0),vc:a.vc+(i.vc||0),chol:a.chol+(i.chol||0),mg:a.mg+(i.mg||0),zn:a.zn+(i.zn||0),ka:a.ka+(i.ka||0),mn:a.mn+(i.mn||0),cu:a.cu+(i.cu||0),se:a.se+(i.se||0),ph:a.ph+(i.ph||0)}),{kcal:0,carbs:0,protein:0,fat:0,fiber:0,va:0,vb1:0,vb2:0,niacin:0,ve:0,na:0,ca:0,fe:0,vc:0,chol:0,mg:0,zn:0,ka:0,mn:0,cu:0,se:0,ph:0})}
-function calcN(f,g){return{kcal:+(f.pg.k*g).toFixed(1),carbs:+(f.pg.c*g).toFixed(1),protein:+(f.pg.p*g).toFixed(1),fat:+(f.pg.f*g).toFixed(1),fiber:+(f.pg.fi*g).toFixed(1),va:+(f.pg.va*g).toFixed(1),vb1:+(f.pg.vb1*g).toFixed(2),vb2:+(f.pg.vb2*g).toFixed(2),niacin:+(f.pg.niacin*g).toFixed(1),ve:+(f.pg.ve*g).toFixed(2),na:+(f.pg.na*g).toFixed(1),ca:+(f.pg.ca*g).toFixed(1),fe:+(f.pg.fe*g).toFixed(2),vc:+(f.pg.vc*g).toFixed(1),chol:+(f.pg.chol*g).toFixed(1),mg:+(f.pg.mg*g).toFixed(1),zn:+(f.pg.zn*g).toFixed(2),ka:+(f.pg.ka*g).toFixed(1),mn:+(f.pg.mn*g).toFixed(2),cu:+(f.pg.cu*g).toFixed(2),se:+(f.pg.se*g).toFixed(2),ph:+(f.pg.ph*g).toFixed(1)}}
+function totalMacros(items){return items.reduce((a,i)=>({kcal:a.kcal+i.kcal,carbs:a.carbs+i.carbs,protein:a.protein+i.protein,fat:a.fat+i.fat,fiber:a.fiber+(i.fiber||0),va:a.va+(i.va||0),vb1:a.vb1+(i.vb1||0),vb2:a.vb2+(i.vb2||0),niacin:a.niacin+(i.niacin||0),ve:a.ve+(i.ve||0),na:a.na+(i.na||0),ca:a.ca+(i.ca||0),fe:a.fe+(i.fe||0),vc:a.vc+(i.vc||0),chol:a.chol+(i.chol||0),mg:a.mg+(i.mg||0),zn:a.zn+(i.zn||0),ka:a.ka+(i.ka||0),mn:a.mn+(i.mn||0),cu:a.cu+(i.cu||0),se:a.se+(i.se||0),ph:a.ph+(i.ph||0),vd:a.vd+(i.vd||0),vk:a.vk+(i.vk||0),vb6:a.vb6+(i.vb6||0),vb12:a.vb12+(i.vb12||0),folate:a.folate+(i.folate||0),pa:a.pa+(i.pa||0),biotin:a.biotin+(i.biotin||0),choline:a.choline+(i.choline||0),iodine:a.iodine+(i.iodine||0)}),{kcal:0,carbs:0,protein:0,fat:0,fiber:0,va:0,vb1:0,vb2:0,niacin:0,ve:0,na:0,ca:0,fe:0,vc:0,chol:0,mg:0,zn:0,ka:0,mn:0,cu:0,se:0,ph:0,vd:0,vk:0,vb6:0,vb12:0,folate:0,pa:0,biotin:0,choline:0,iodine:0})}
+function calcN(f,g){return{kcal:+(f.pg.k*g).toFixed(1),carbs:+(f.pg.c*g).toFixed(1),protein:+(f.pg.p*g).toFixed(1),fat:+(f.pg.f*g).toFixed(1),fiber:+(f.pg.fi*g).toFixed(1),va:+(f.pg.va*g).toFixed(1),vb1:+(f.pg.vb1*g).toFixed(2),vb2:+(f.pg.vb2*g).toFixed(2),niacin:+(f.pg.niacin*g).toFixed(1),ve:+(f.pg.ve*g).toFixed(2),na:+(f.pg.na*g).toFixed(1),ca:+(f.pg.ca*g).toFixed(1),fe:+(f.pg.fe*g).toFixed(2),vc:+(f.pg.vc*g).toFixed(1),chol:+(f.pg.chol*g).toFixed(1),mg:+(f.pg.mg*g).toFixed(1),zn:+(f.pg.zn*g).toFixed(2),ka:+(f.pg.ka*g).toFixed(1),mn:+(f.pg.mn*g).toFixed(2),cu:+(f.pg.cu*g).toFixed(2),se:+(f.pg.se*g).toFixed(2),ph:+(f.pg.ph*g).toFixed(1),vd:+(((f.pg.vd)||0)*g).toFixed(2),vk:+(((f.pg.vk)||0)*g).toFixed(2),vb6:+(((f.pg.vb6)||0)*g).toFixed(2),vb12:+(((f.pg.vb12)||0)*g).toFixed(2),folate:+(((f.pg.folate)||0)*g).toFixed(1),pa:+(((f.pg.pa)||0)*g).toFixed(1),biotin:+(((f.pg.biotin)||0)*g).toFixed(1),choline:+(((f.pg.choline)||0)*g).toFixed(1),iodine:+(((f.pg.iodine)||0)*g).toFixed(1)}}
 function p2(n){return String(n).padStart(2,'0')}
 function todayStr(){const d=new Date();return`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`}
 function dayTotal(ds){const d=getDayData(ds);return totalMacros([...d.breakfast,...d.lunch,...d.dinner,...d.snack])}
@@ -3064,7 +3237,7 @@ function renderTraining(){
   return h;
 }
 
-// ── 满血版7天评估（锚点周期制：锚=用户第一条记录日，滚动7天为一期，第7天自动出评估，不按自然周） ──
+// ── 7 天评估（锚点周期制：锚=用户第一条记录日，滚动7天为一期，第7天自动出评估，不按自然周） ──
 /* 周期引擎：bosAnchor()=最早有记录的日期；bosCycle()= {anchor, n(已完成期数), dayIn(当前期第几天)}；
    评估窗口=最近一个已完成期的7天 [anchor+7(n-1), anchor+7n-1]，每满7天自动落一份新评估 */
 function bosAnchor(){
@@ -3115,13 +3288,14 @@ function renderAssess(){
     const dots=Array.from({length:7},(_,i)=>`<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${i<a.dayIn?'#3B6D11':'#E4E1D8'};margin:0 4px;vertical-align:middle"></span>`).join('');
     const care=(nm0?nm0+'，':'')+(a.bodyDays>=2?`已经记下 ${a.bodyDays} 天——第 7 天，评估自己长出来。`:`第一次记录那天就是锚点，从那天数起，第 7 天评估自动出现。`);
     let h=`<div class="card assess-card"><div class="sec-title">7 天评估</div>
+      <div class="assess-base">运动 × 营养 × 神经科学 × 心理学前沿研究底座</div>
       <div class="light-box yellow"><div class="light-emoji"><span class="dot y"></span></div><div class="light-label">记录第 ${a.dayIn}/7 天 · 第 7 天自动出首份评估</div></div>
       <div style="text-align:center;margin:14px 0 4px 0">${dots}</div>
       <div style="margin-top:12px;padding:10px 14px;background:#FCF6EE;border-radius:12px;font-size:12.5px;line-height:1.7;color:#7a6a55">${care}</div>
     </div>`;
     h+=`<div class="cta-box"><div class="cta-title">开源版为通用评估</div>
-      <div class="cta-body">针对性个人评估以及专业建议 <b>¥99/月，每周 1 次</b><br>7 天 / 30 天深度评估 Skill · 敬请关注</div>
-      <div class="cta-actions"><div class="cta-line">一对一个性化系统化训练营养，联系K哥</div><div class="cta-line">抖音搜「${BOS_CONFIG.douyin}」看健身科普</div><div class="cta-line">微信：${BOS_CONFIG.wechat}（注明来意）</div></div>
+      <div class="cta-body">7 天 / 30 天专业深度评估 Skill · 敬请关注</div>
+      <div class="cta-review">好用的话，欢迎留个评价 · 你的反馈能帮我做得更好</div>
     </div>`;
     h+=`<div style="text-align:center;margin-top:4px"><button class="factory-btn" onclick="resetAllData()" title="清空演示数据与全部试用记录，恢复到初始干净版本，正式开始使用">清空全部数据 · 恢复出厂（正式使用）</button></div>`;
     return h;
@@ -3134,6 +3308,7 @@ function renderAssess(){
     :a.bodyDays>=2?`记下的每一笔，都是你在照顾自己的痕迹。`
     :`没记录的日子也是生活。想开始的时候，这里一直都在。`);
   let h=`<div class="card assess-card"><div class="sec-title">7 天评估 <span style="font-size:11px;font-weight:400;color:var(--muted)">第 ${a.cyc} 期 · ${a.cycStart} ~ ${a.cycEnd} · 每满 7 天自动出新一期</span></div>
+    <div class="assess-base">运动 × 营养 × 神经科学 × 心理学前沿研究底座</div>
     <div class="light-box ${a.level}"><div class="light-emoji"><span class="dot ${light}"></span></div><div class="light-label">${a.label}</div></div>
     <div class="stat-grid2">
       <div class="sc2"><div class="sc2-l">平均BOS</div><div class="sc2-v">${a.avgBos!==null?a.avgBos.toFixed(1):'—'}</div></div>
@@ -3147,8 +3322,8 @@ function renderAssess(){
   </div>`;
   h+=renderPsy();
   h+=`<div class="cta-box"><div class="cta-title">开源版为通用评估</div>
-    <div class="cta-body">针对性个人评估以及专业建议 <b>¥99/月，每周 1 次</b><br>7 天 / 30 天深度评估 Skill · 敬请关注</div>
-    <div class="cta-actions"><div class="cta-line">一对一个性化系统化训练营养，联系K哥</div><div class="cta-line">抖音搜「${BOS_CONFIG.douyin}」看健身科普</div><div class="cta-line">微信：${BOS_CONFIG.wechat}（注明来意）</div></div>
+    <div class="cta-body">7 天 / 30 天专业深度评估 Skill · 敬请关注</div>
+    <div class="cta-review">好用的话，欢迎留个评价 · 你的反馈能帮我做得更好</div>
   </div>`;
   h+=`<div style="text-align:center;margin-top:4px"><button class="factory-btn" onclick="resetAllData()" title="清空演示数据与全部试用记录，恢复到初始干净版本，正式开始使用">清空全部数据 · 恢复出厂（正式使用）</button></div>`;
   return h;
@@ -3339,8 +3514,6 @@ function renderOverview(){
   h+=bosHabitCard();
   // ⑦ 目标进度 & BMI（放最后）
   h+=bosGoalCard();
-  // 页脚原入口（保留）
-  h+=`<div class="cta-box cta-foot"><div class="cta-line" style="font-weight:700">联系K哥</div><div class="cta-line">微信：<b>${BOS_CONFIG.wechat}</b></div><div class="cta-line">抖音：${BOS_CONFIG.douyin}</div></div>`;
   return '<div class="ov-cream">'+h+'</div>';
 }
 function bosSuggestion(){
@@ -3428,7 +3601,8 @@ function resetAllData(){
 }
 function mkDemoFood(name,kcal){
   const c=Math.round(kcal*0.45/4),p=Math.round(kcal*0.28/4),f=Math.round(kcal*0.27/9);
-  return {name:name,kcal:Math.round(kcal/10)*10,carbs:c,protein:p,fat:f,fiber:Math.round(c/28)};
+  const g=Math.max(10,Math.round(kcal/1.8/10)*10);
+  return {name:name,unit:g+'g',kcal:Math.round(kcal/10)*10,carbs:c,protein:p,fat:f,fiber:Math.round(c/28),_g:g};
 }
 function bosTrendData(){
   const end=new Date();end.setHours(0,0,0,0);
